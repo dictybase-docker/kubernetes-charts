@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{.Release.Name | quote}}
+  labels:
+    app: {{.Release.Name | quote}}
+    heritage: {{.Release.Service | quote}} 
+      # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+spec:
+  replicas: {{default 1 .replicas}}
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name | quote}}
+        group: {{.group}}
+        provider: {{.provider}}
+        mode: {{.mode}}
+    spec:
+      containers:
+        - name: {{.Release.Name | quote}}
+          image: "{{.dockerNamespace}}/{{.dockerTag}}"
+          command: ["app run"]
+          args: ["-c", "/etc/outh-secrets/oauth-secret-keys"]
+          imagePullPolicy: {{.pullPolicy}}
+          ports:
+            - name: {{.portName}}
+              containerPort: {{.portNum}}
+          volumeMounts:
+            - name: outh-secrets
+              mountPath: /etc/outh-secrets
+              readOnly: true
+          env:
+            - name: JWT_PUBLIC_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{.Release.Name}}-jwt-credentials"
+                  key: jwt-public-key
+            - name: JWT_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: "{{.Release.Name}}-jwt-credentials"
+                  key: jwt-private-key
+      volumes:
+        - name: oauth-secrets
+          secret: 
+            secretName: "{{.Release.Name}}-oauth-credentials"
+        
+

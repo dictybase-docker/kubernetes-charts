@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "{{.Release.Name}}-jwt-credentials"
+  labels:
+    # broader function, such as frontend, backend etc
+    group: credentials
+    # what specific function that group provide
+    provider: jwt-credentials
+    heritage: {{.Release.Service | quote}}
+    app: {{.Release.Name | quote}}
+    tier: {{.tier}}
+  annotations:
+    # This defines the resource as a hook
+    "helm.sh/hook": pre-install
+  type: Opaque
+  data:
+    jwt-public-key: xxxxxxxx
+    jwt-private-key: xxxxxxx
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "{{.Release.Name}}-outh-credentials"
+  labels:
+    # broader function, such as frontend, backend etc
+    group: data
+    # what specific function that group provide
+    provider: outh-credentials
+    # to differentiate that it is managed by helm/tiler
+    heritage: {{.Release.Service | quote}}
+    # generic kind of app, mostly equivalent to name
+    app: {{.Release.Name | quote}}
+    # Using it for separating dev, staging and prod, not sure if i need that
+    tier: {{.tier}}
+  annotations:
+    # This defines the resource as a hook
+    "helm.sh/hook": pre-install
+  type: Opaque
+  data:
+    outh-secret-keys: xxxxxxx
