@@ -1,0 +1,15 @@
+# Default values for authserver.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+dockerTag: "v2.1.1" 
+pullPolicy: "alwaysPull"
+dockerNamespace: "dictybase"
+tier: dev
+provider: jwt-proxy
+group: api
+mode: standalone
+portName: jwt-proxy-port
+portNum: 9999
+# default is 1, so uncomment it if you need more than that
+# replicas: 1
