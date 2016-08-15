@@ -6,4 +6,4 @@ sources:
   - https://hub.docker.com/r/dictybase/authserver
 maintainers:
   - name: Siddhartha Basu
-  - email: siddhartha-basu@northwestern.edu
+    email: siddhartha-basu@northwestern.edu
