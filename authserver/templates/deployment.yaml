@@ -8,42 +8,29 @@ metadata:
       # This makes it easy to audit chart usage.
     chart: "{{.Chart.Name}}-{{.Chart.Version}}"
 spec:
-  replicas: {{default 1 .replicas}}
+  replicas: {{default 1 .Values.replicas | quote}}
   template:
     metadata:
       labels:
         app: {{.Release.Name | quote}}
-        group: {{.group}}
-        provider: {{.provider}}
-        mode: {{.mode}}
+        group: {{.Values.group | quote}}
+        provider: {{.Values.provider | quote}}
+        mode: {{.Values.mode |quote}}
     spec:
       containers:
-        - name: {{.Release.Name | quote}}
-          image: "{{.dockerNamespace}}/{{.dockerTag}}"
-          command: ["app run"]
-          args: ["-c", "/etc/outh-secrets/oauth-secret-keys"]
-          imagePullPolicy: {{.pullPolicy}}
+        - name: {{.Release.Name |quote}}
+          image: "{{.Values.dockerNamespace}}/authserver:{{.Values.dockerTag}}"
+          command: ["/bin/bash", "-c"]
+          args: ["app run --pkey /etc/authserver/jwt-public-key --config /etc/authserver/client-private-keys  --prkey /etc/authserver/jwt-private-key"]
+          imagePullPolicy: {{.Values.pullPolicy |quote}}
           ports:
-            - name: {{.portName}}
-              containerPort: {{.portNum}}
+            - name: {{.Values.portName | quote}}
+              containerPort: {{.Values.portNum | quote}}
           volumeMounts:
-            - name: outh-secrets
-              mountPath: /etc/outh-secrets
+            - name: auth-secrets
+              mountPath: /etc/authserver
               readOnly: true
-          env:
-            - name: JWT_PUBLIC_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: "{{.Release.Name}}-jwt-credentials"
-                  key: jwt-public-key
-            - name: JWT_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: "{{.Release.Name}}-jwt-credentials"
-                  key: jwt-private-key
       volumes:
-        - name: oauth-secrets
+        - name: auth-secrets
           secret: 
-            secretName: "{{.Release.Name}}-oauth-credentials"
-        
-
+            secretName: auth-credentials
