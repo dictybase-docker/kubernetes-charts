@@ -4,18 +4,14 @@ This [helm](https://github.com/kubernetes/helm) chart provides
 [authserver](https://github.com/dictyBase/authserver).
 
 ## Credentials
-The manifests for [secrets](http://kubernetes.io/docs/user-guide/secrets/) are
-in the `sample` file. Copy the file `_sample_pre-install.yaml` to
-`credentials.yaml` and then fill up the appropiate secret keys. Any file name
-with `credentials` are ignored in this chart repo by default and will not be
-pushed to any remote.
-
-### Secret keys
-All values have to be `base64` encoded.
+A kubernetes [secret](http://kubernetes.io/docs/user-guide/secrets/) `auth-credentials`
+have to created. It should have at least the following three keys.
 
 * jwt-public-key
 * jwt-private-key
-* oauth-secret-key : This one should be a json string in the following format.
+* client-private-keys : This one should be a json encoded key pair
+  values in the following format where each key represent a
+  particular `oauth2` provider.
 
 ```json
 {
@@ -24,7 +20,12 @@ All values have to be `base64` encoded.
 }
 ```
 
-It’s preferable to save it in a file and then encode with `base64`
+### Example of creating secret
+
+```shell
+kubectl create secret generic auth-credentials --from-file=jwt-public-key=app.rsa.pub \
+    --from-file=jwt-private-key=app.rsa \
+    --from-file=client-private-keys=client_secret.json
 ```
-base64 -w 0 [file]
-```
+
+
