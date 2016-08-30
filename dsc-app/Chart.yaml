@@ -1,0 +1,9 @@
+description: A Helm chart for dictybase stock center(dsc) web application
+name: dsc-app
+version: 0.0.16
+sources:
+  - https://github.com/dictyBase/Dicty-Stock-Center
+  - https://hub.docker.com/r/dictybase/dsc/
+maintainers:
+  - name: Siddhartha Basu
+    email: siddhartha-basu@northwestern.edu
