@@ -1,0 +1,9 @@
+description: A Helm chart for fake api server
+name: fake-dsc-server
+version: 0.0.1
+sources:
+  - https://github.com/dictyBase/fake-dsc-server
+  - https://hub.docker.com/r/dictybase/fake-dsc-server/
+maintainers:
+  - name: Siddhartha Basu
+    email: siddhartha-basu@northwestern.edu
