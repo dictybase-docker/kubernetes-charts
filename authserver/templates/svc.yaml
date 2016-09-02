@@ -11,7 +11,9 @@ metadata:
 spec:
   type: NodePort
   ports:
+    # The port below where the service should run 
     - port: {{.Values.portNum | quote}}
+    # The target port(pod) where it should proxy(map) to
       targetPort: {{.Values.portName | quote}}
   selector:
     provider: {{.Values.provider | quote}}

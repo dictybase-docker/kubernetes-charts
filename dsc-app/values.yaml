@@ -8,7 +8,7 @@ dockerNamespace: dictybase
 provider: dsc-webapp
 group: webapp
 mode: standalone
-portName: dsc-webapp-port
+portName: dsc-port
 portNum: 9596
 # default is 1, so uncomment it if you need more than that
 # replicas: 1

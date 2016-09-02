@@ -7,5 +7,5 @@ dockerNamespace: dictybase
 provider: fake-api-server
 group: api
 mode: standalone
-portName: fake-api-server-port
+portName: fakeapi-port
 portNum: 8080
