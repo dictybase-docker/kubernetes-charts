@@ -1,0 +1,10 @@
+# Default values for local-disk.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+provider: local-database-volume
+group: volume
+size: 8Gi
+mode: ReadWriteOnce
+path: /data/postgres
+policy: Recycle
