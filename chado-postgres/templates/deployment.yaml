@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{.Release.Name | quote}}
+  labels:
+    app: {{.Release.Name | quote}}
+    heritage: {{.Release.Service | quote}} 
+      # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+spec:
+  replicas: {{default 1 .Values.replicas | quote}}
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name | quote}}
+        group: {{.Values.group | quote}}
+        provider: {{.Values.provider | quote}}
+        mode: {{.Values.mode | quote}}
+    spec:
+      containers:
+        - name: {{.Release.Name | quote}}
+          image: "{{.Values.dockerNamespace}}/{{.Values.ImageName}}:{{.Values.dockerTag}}"
+          ports:
+            - name: {{.Values.portName | quote}}
+              containerPort: {{.Values.portNum | quote}}
+          env:
+            - name: PGDATA
+              value: "{{.Values.dataDir}}/pgdata"
+          volumeMounts:
+            - name: postgres-persistent-storage
+              mountPath: {{.Values.dataDir | quote}}
+            - name: postgres-secrets
+              mountPath: /secrets
+              readOnly: true
+      volumes:
+        - name: postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: "{{.Release.Name}}-claim"
+        - name: postgres-secrets
+          secret:
+            secretName: {{.Values.secretName | quote}}

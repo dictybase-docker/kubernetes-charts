@@ -1,0 +1,9 @@
+description: A Helm chart for postgresql database to run chado instance
+name: chado-postgres
+version: 9.4.4
+sources:
+  - https://hub.docker.com/r/dictybase/chado-postgres
+  - https://github.com/dictybase-docker/chado-postgres
+maintainers:
+  - name: Siddhartha Basu
+    email: siddhartha-basu@northwestern.edu
