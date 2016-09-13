@@ -33,4 +33,4 @@ spec:
       volumes:
         - name: auth-secrets
           secret: 
-            secretName: auth-credentials
+            secretName: {{.Values.secretName}}

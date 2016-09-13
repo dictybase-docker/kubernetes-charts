@@ -11,5 +11,6 @@ group: api
 mode: standalone
 portName: jwt-proxy-port
 portNum: 9999
+secretName: auth-secrets
 # default is 1, so uncomment it if you need more than that
 # replicas: 1

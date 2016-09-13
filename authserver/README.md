@@ -5,7 +5,9 @@ This [helm](https://github.com/kubernetes/helm) chart provides
 
 ## Credentials
 A kubernetes [secret](http://kubernetes.io/docs/user-guide/secrets/) `auth-credentials`
-have to created. It should have at least the following three keys.
+have to created. The default name`(auth-credentials)` could be changed either
+from the *values* file or setting it from helm command line. It should have at
+least the following three keys.
 
 * jwt-public-key
 * jwt-private-key
