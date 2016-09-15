@@ -2,9 +2,14 @@
 # This is a YAML-formatted file.
 # Declare name/value pairs to be passed into your templates.
 # name: value
-provider: local-database-volume
 group: volume
-size: 8Gi
 mode: ReadWriteOnce
-path: /data/postgres
 policy: Recycle
+database:
+  provider: local-database-volume
+  size: 8Gi
+  path: /data/postgres
+backup:
+  provider: local-backup-volume 
+  size: 500Mi
+  path: /data/backup

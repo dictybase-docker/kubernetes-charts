@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: "{{.Release.Name}}-database-volume"
+  name: "{{.Release.Name}}-backup-volume"
   labels: 
     heritage: {{.Release.Service | quote}} 
     group: {{.Values.group | quote}}
-    provider: {{.Values.database.provider | quote}}
+    provider: {{.Values.backup.provider | quote}}
     chart: "{{.Chart.Name}}-{{.Chart.Version}}"
 spec:
   capacity:
-    storage: {{.Values.database.size | quote}}
+    storage: {{.Values.backup.size | quote}}
   accessModes:
     - {{.Values.mode | quote}}
   hostPath:
-    path: {{.Values.database.path | quote}}
+    path: {{.Values.backup.path | quote}}
   persistentVolumeReclaimPolicy: {{.Values.policy | quote}}
