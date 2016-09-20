@@ -15,8 +15,4 @@ secretName: postgres-credentials
 serviceType: NodePort
 dataDir: /var/lib/postgresql/data
 claim:
-  size: 6Gi
-volumeLabels:
-  provider: local-database-volume
-  group: volume
-  mode: ReadWriteOnce
+  name: local-database-claim

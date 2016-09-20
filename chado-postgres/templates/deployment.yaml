@@ -35,7 +35,7 @@ spec:
       volumes:
         - name: postgres-persistent-storage
           persistentVolumeClaim:
-            claimName: "{{.Release.Name}}-claim"
+            claimName: {{.Values.claim.name | quote}}
         - name: postgres-secrets
           secret:
             secretName: {{.Values.secretName | quote}}
