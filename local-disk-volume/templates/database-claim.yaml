@@ -1,0 +1,20 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{.Values.database.claim.name | quote}}
+  labels: 
+    heritage: {{.Release.Service | quote}} 
+    group: {{.Values.database.claim.group | quote}}
+  annotations: 
+    "helm.sh/hook": post-install
+spec:
+  accessModes:
+    - {{.Values.mode | quote}}
+  resources:
+    requests:
+      storage: {{.Values.database.claim.size | quote}}
+  selector:
+    matchLabels:
+      heritage: {{.Release.Service | quote}}
+      group: {{.Values.group | quote}}
+      provider: {{.Values.database.provider | quote}}
