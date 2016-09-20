@@ -9,7 +9,15 @@ database:
   provider: local-database-volume
   size: 8Gi
   path: /data/postgres
+  claim:
+    group: claim
+    name: local-database-claim
+    size: 6Gi
 backup:
   provider: local-backup-volume 
   size: 500Mi
   path: /data/backup
+  claim:
+    group: claim
+    name: local-backup-claim
+    size: 250Mi
