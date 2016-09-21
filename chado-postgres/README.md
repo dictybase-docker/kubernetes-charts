@@ -1,4 +1,4 @@
-# authserver
+# chado-postgres
 This [helm](https://github.com/kubernetes/helm) chart provides
 [kubernetes](http://kubernetes.io) manifests for running
 [chado-postgresql](https://hub.docker.com/r/dictybase/chado-postgres/).
