@@ -1,0 +1,14 @@
+# Default values for restore-postgres.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+group: data-archive
+provider: chado-restore
+mode: standalone
+dockerNamespace: dictybase
+ImageName: chado-postgres
+dockerTag: 9.4-dev-rw
+claim: local-database-claim 
+datadir: /restore
+secretName: postgres-credentials
+chado-service: chado-postgres

@@ -1,0 +1,6 @@
+description: A Helm chart for restoring chado postgresql database from backup.
+name: restore-postgres
+version: 1.0.0
+maintainers:
+  - name: Siddhartha Basu
+    email: siddhartha-basu@northwestern.edu
