@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{.Release.Name | quote}}
+  labels:
+    app: {{.Release.Name | quote}}
+    heritage: {{.Release.Service | quote}} 
+      # This makes it easy to audit chart usage.
+    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    group: {{.Values.group | quote}}
+    provider: {{.Values.provider | quote}}
+    mode: {{.Values.mode | quote}}
+spec:
+  containers:
+  - name: {{.Release.Name | quote}}
+    image: "{{.Values.dockerNamespace}}/{{.Values.ImageName}}:{{.Values.dockerTag}}"
+    env: 
+      - name: "CHADO_USER"
+        valueFrom:
+          secretKeyRef:
+            name: {{.Values.secretName | quote}}
+            key: chadouser
+      - name: "CHADO_DB"
+        valueFrom:
+          secretKeyRef:
+            name: {{.Values.secretName | quote}}
+            key: chadodb
+      - name: "PGPASSWORD"
+        valueFrom:
+          secretKeyRef:
+            name: {{.Values.secretName | quote}}
+            key: chadopass
+    command: ["app"]
+    args: ["--service-name", "{{.Values.chadoService}}", "--archive-name", "{{.Values.archiveName}}", "--to", "{{.Values.dataDir}}", "--from", "{{.Values.stagingDir}}"]
+    volumeMounts:
+      - name: postgres-restore-storage
+        mountPath: {{.Values.dataDir | quote}}
+      - name: postgres-staging-storage
+        mountPath: {{.Values.stagingDir | quote}}
+  volumes:
+    - name: postgres-restore-storage
+      persistentVolumeClaim:
+        claimName: {{.Values.claim | quote}}
+    - name: postgres-staging-storage
+      hostPath:
+        path: {{.Values.hostDir | quote}}
+

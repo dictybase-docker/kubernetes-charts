@@ -6,9 +6,13 @@ group: data-archive
 provider: chado-restore
 mode: standalone
 dockerNamespace: dictybase
-ImageName: chado-postgres
-dockerTag: 9.4-dev-rw
+ImageName: postgres-restore
+dockerTag: latest
 claim: local-database-claim 
-datadir: /restore
+dataDir: /restore
+stagingDir: /staging
+hostDir: /data/staging
+archiveName: dictychado.dump
 secretName: postgres-credentials
-chado-service: chado-postgres
+chadoService: chado-postgres
+policy: Never
