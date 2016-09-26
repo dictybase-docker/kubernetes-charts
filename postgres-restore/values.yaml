@@ -8,7 +8,7 @@ mode: standalone
 dockerNamespace: dictybase
 ImageName: postgres-restore
 dockerTag: latest
-claim: local-database-claim 
+claim: local-backup-claim 
 dataDir: /restore
 stagingDir: /staging
 hostDir: /data/staging
