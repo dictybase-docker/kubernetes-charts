@@ -25,7 +25,7 @@ spec:
           secretKeyRef:
             name: {{.Values.secretName | quote}}
             key: chadodb
-      - name: "PGPASSWORD"
+      - name: "CHADO_PASS"
         valueFrom:
           secretKeyRef:
             name: {{.Values.secretName | quote}}
