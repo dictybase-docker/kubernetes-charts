@@ -38,10 +38,10 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | `postgresUser`             | Username of new user to create.            | `postgres`                                                 |
 | `postgresPassword`         | Password for the new user.                 | random 10 characters                                       |
 | `postgresDatabase`         | Name for new database to create.           | `postgres`                                                 |
-| `chadoUser`                | Username of a regular user to create.      | `chadomaster`                                                 |
+| `chadoUser`                | Username of a regular user to create.      | `chadomaster`                                              |
 | `chadoPassword`            | Password for the regulsr user.             | random 12 characters                                       |
-| `chadoDatabase`            | Name for new user database to create.      | `dictychado`                                                 |
-| `serviceName`              | Name of the service.                       | `postgresql`                                                 |
+| `chadoDatabase`            | Name for new user database to create.      | `dictychado`                                               |
+| `serviceName`              | Name of the service.                       | `postgresql`                                               |
 | `persistence.enabled`      | Use a PVC to persist data                  | `true`                                                     |
 | `persistence.storageClass` | Storage class of backing PVC               | `nil` (uses alpha storage class annotation)                |
 | `persistence.accessMode`   | Use volume as ReadOnly or ReadWrite        | `ReadWriteOnce`                                            |
