@@ -1,21 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Chart.Name | quote}}
+  name: {{ template "fullname" . }}
   labels:
-    heritage: {{.Release.Service | quote}} 
+    app: {{ template "fullname" . }}
     chart: "{{.Chart.Name}}-{{.Chart.Version}}"
-    provider: {{.Values.provider | quote}}
-    group: {{.Values.group | quote}}
-    mode: {{.Values.mode | quote}}
+    release: "{{ Release.Name }}"
+    heritage: {{.Release.Service | quote}} 
+{{- if .Values.metrics.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9187"
+{{- end }}
 spec:
-  type: {{.Values.serviceType | quote}}
   ports:
-    - port: {{.Values.portNum | quote}}
-      targetPort: {{.Values.portName | quote}}
+  - name: {{ default "postgresql" .Values.serviceName }}  
+    port: {{ default 5432 .Values.servicePort }}
+    targetPort: {{ default "postgresql" .Values.serviceName }}   
   selector:
-    provider: {{.Values.provider | quote}}
-    group: {{.Values.group | quote}}
-    mode: {{.Values.mode | quote}}
-    app: {{.Release.Name | quote}}
-
+    app: {{ template "fullname" . }}
