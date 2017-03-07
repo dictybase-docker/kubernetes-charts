@@ -58,9 +58,6 @@ spec:
               - pg_isready
             initialDelaySeconds: 60
             timeoutSeconds: 3
-          {{- if .Values.resources }}
-          {{ toYaml .Values.resources }}
-          {{- end }}
           volumeMounts:
           - name: data
             mountPath: /var/lib/postgresql/data/pgdata
@@ -74,15 +71,15 @@ spec:
             value: postgresql://postgres@127.0.0.1:5432?sslmode=disable
           ports:
           - name: metrics
-            containerPort: 9187
+            containerPort: 9188
           resources:
   {{ toYaml .Values.metrics.resources | indent 10 }}
   {{- end }}
-        volumes:
-        - name: data
-        {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ template "fullname" . }}
-        {{- else }}
-          emptyDir: {}
-        {{- end -}}
+      volumes:
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
