@@ -47,7 +47,6 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | `persistence.accessMode`   | Use volume as ReadOnly or ReadWrite        | `ReadWriteOnce`                                            |
 | `persistence.size`         | Size of data volume                        | `8Gi`                                                      |
 | `persistence.subPath`      | Subdirectory of the volume to mount at     | `postgresql-db`                                            |
-| `resources`                | CPU/Memory resource requests/limits        | Memory: `256Mi`, CPU: `100m`                               |
 | `metrics.enabled`          | Start a side-car prometheus exporter       | `false`                                                    |
 | `metrics.image`            | Exporter image                             | `wrouesnel/postgres_exporter`                              |
 | `metrics.imageTag`         | Exporter image                             | `v0.1.1`                                                   |

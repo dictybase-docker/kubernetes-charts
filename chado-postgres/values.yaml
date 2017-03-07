@@ -7,7 +7,7 @@ image: "dictybase/chado-postgres"
 ## chado-postgres image version
 ## ref: https://hub.docker.com/r/dictybase/chado-postgres/
 ##
-imageTag: "1.0.0"
+imageTag: "v1.0.0"
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
