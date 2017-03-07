@@ -1,41 +1,88 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{.Release.Name | quote}}
+  name: {{ template "fullname" . }}
   labels:
-    app: {{.Release.Name | quote}}
-    heritage: {{.Release.Service | quote}} 
-      # This makes it easy to audit chart usage.
-    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
 spec:
-  replicas: {{default 1 .Values.replicas | quote}}
   template:
     metadata:
       labels:
-        app: {{.Release.Name | quote}}
-        group: {{.Values.group | quote}}
-        provider: {{.Values.provider | quote}}
-        mode: {{.Values.mode | quote}}
+        app: {{ template "fullname" . }}
+        group: {{ default "" .Values.group | quote }}
+        provider: {{ default "" .Values.provider | quote }}
+        mode: {{ default "" .Values.mode | quote }}
     spec:
       containers:
-        - name: {{.Release.Name | quote}}
-          image: "{{.Values.dockerNamespace}}/{{.Values.ImageName}}:{{.Values.dockerTag}}"
-          ports:
-            - name: {{.Values.portName | quote}}
-              containerPort: {{.Values.portNum | quote}}
+        - name: {{ template "fullname" . }}
+          image: "{{ .Values.image }}:{{ .Values.imageTag }}"
           env:
-            - name: PGDATA
-              value: "{{.Values.dataDir}}/pgdata"
+          - name: POSTGRES_USER
+            value: {{ default "postgres" .Values.postgresUser | quote }}
+            # Required for pg_isready in the health probes.
+          - name: PGUSER
+            value: {{ default "postgres" .Values.postgresUser | quote }}
+          - name: POSTGRES_DB
+            value: {{ default "postgres" .Values.postgresDatabase | quote }}
+          - name: PGDATA
+            value: /var/lib/postgresql/data/pgdata
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "fullname" . }}
+                key: postgres-password
+          - name: CHADO_DB
+            value: {{ default "dictychado" .Values.chadoDatabase | quote }}
+          - name: CHADO_USER
+            value: {{ default "dictymaster" .Values.chadoUser | quote }}
+          - name: CHADO_PASS
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "fullname" . }}
+                key: chado-password
+          ports:
+          - name: postgresql
+            containerPort: 5432
+          livenessProbe:
+            exec:
+              command:
+              - pg_isready
+            initialDelaySeconds: 60
+            timeoutSeconds: 3
+          readinessProbe:
+            exec:
+              command:
+              - pg_isready
+            initialDelaySeconds: 60
+            timeoutSeconds: 3
+          {{- if .Values.resources }}
+          {{ toYaml .Values.resources }}
+          {{- end }}
           volumeMounts:
-            - name: postgres-persistent-storage
-              mountPath: {{.Values.dataDir | quote}}
-            - name: postgres-secrets
-              mountPath: /secrets
-              readOnly: true
-      volumes:
-        - name: postgres-persistent-storage
+          - name: data
+            mountPath: /var/lib/postgresql/data/pgdata
+            subPath: {{ .Values.persistence.subPath }}
+  {{- if .Values.metrics.enabled }}
+        - name: metrics 
+          image: "{{ .Values.metrics.image }}:{{ .Values.metrics.imageTag }}"
+          imagePullPolicy: {{ default "" .Values.metrics.imagePullPolicy | quote }}
+          env:
+          - name: DATA_SOURCE_NAME
+            value: postgresql://postgres@127.0.0.1:5432?sslmode=disable
+          ports:
+          - name: metrics
+            containerPort: 9187
+          resources:
+  {{ toYaml .Values.metrics.resources | indent 10 }}
+  {{- end }}
+        volumes:
+        - name: data
+        {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{.Values.claim.name | quote}}
-        - name: postgres-secrets
-          secret:
-            secretName: {{.Values.secretName | quote}}
+            claimName: {{ template "fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}
