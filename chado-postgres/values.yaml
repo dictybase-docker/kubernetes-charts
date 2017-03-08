@@ -57,3 +57,8 @@ metrics:
 ## Service name
 ## Default: postgresql
 # serviceName: 
+
+## Service type
+#serviceType:
+  #enabled: false
+  #name: NodePort
