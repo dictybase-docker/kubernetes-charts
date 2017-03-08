@@ -42,6 +42,8 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | `chadoPassword`            | Password for the regulsr user.             | random 12 characters                                       |
 | `chadoDatabase`            | Name for new user database to create.      | `dictychado`                                               |
 | `serviceName`              | Name of the service.                       | `postgresql`                                               |
+| `serviceType.enabled`      | Explicitly specify the service type.       | `false`                                                    |
+| `serviceType.name`         | Type of service.                           | `NodePort`                                                 |
 | `persistence.enabled`      | Use a PVC to persist data                  | `true`                                                     |
 | `persistence.storageClass` | Storage class of backing PVC               | `nil` (uses alpha storage class annotation)                |
 | `persistence.accessMode`   | Use volume as ReadOnly or ReadWrite        | `ReadWriteOnce`                                            |
