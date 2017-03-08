@@ -13,12 +13,12 @@ metadata:
     prometheus.io/port: "9187"
 {{- end }}
 spec:
-{{- if .Values.serviceType.enabled }}
-  type: {{ serviceType.name }}
-{{- end }}
   ports:
   - name: {{ default "postgresql" .Values.serviceName }}  
     port: {{ default 5432 .Values.servicePort }}
     targetPort: {{ default "postgresql" .Values.serviceName }}   
   selector:
     app: {{ template "fullname" . }}
+{{- if .Values.serviceType.enabled }}
+  type: {{ .Values.serviceType.name }}
+{{- end }}

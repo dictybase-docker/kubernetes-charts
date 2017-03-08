@@ -59,6 +59,6 @@ metrics:
 # serviceName: 
 
 ## Service type
-#serviceType:
-  #enabled: false
-  #name: NodePort
+serviceType:
+  enabled: false
+  name: NodePort
