@@ -1,0 +1,24 @@
+# Default values for chado-sqitch.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: dictybase/chado-sqitch
+  tag: 1.23.5
+  pullPolicy: IfNotPresent
+
+# ConfigMaps and secrets keys for configuring chado database access.
+# It should match the configMaps, secrets and their key names deployed with
+# chado-postgres chart.
+chadoPostgres:
+    config:
+        # configMap name
+        name: chado-postgres
+        # database key name
+        database: chado.database
+        # use key name 
+        user: chado.user
+    secrets:
+        # secretes name
+        name: chado-postgres
+        # secrets key value
+        password: chado-password

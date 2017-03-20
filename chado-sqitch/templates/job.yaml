@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  activeDeadlineSeconds: 100
+  template:
+    metadata:
+      name: {{ template "fullname" . }}
+      labels:
+        app: {{ template "fullname" . }}
+        group: {{ default "" .Values.group | quote }}
+        provider: {{ default "" .Values.provider | quote }}
+        mode: {{ default "" .Values.mode | quote }}
+    spec:
+      containers:
+      - name: {{ template "fullname" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command: ["app"]
+        env:
+        - name: CHADO_DB
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ .Values.chadoPostgres.config.name }}"
+              key: "{{ .Values.chadoPostgres.config.database }}"
+        - name: CHADO_USER
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ .Values.chadoPostgres.config.name }}"
+              key: "{{ .Values.chadoPostgres.config.user }}"
+        - name: CHADO_PASS
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.chadoPostgres.secrets.name }}"
+              key: "{{ .Values.chadoPostgres.secrets.password }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      restartPolicy: Never
