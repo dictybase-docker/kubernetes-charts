@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "name" . }} 
+  annotations:
+    "helm.sh/hook": pre-install
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  postgres.user: {{ default "postgres" .Values.postgresUser | quote }}
+  postgres.database: {{ default "postgres" .Values.postgresDatabase | quote }}
+  chado.user: {{ default "dictymaster" .Values.chadoUser | quote }}
+  chado.database: {{ default "dictychado" .Values.chadoDatabase | quote }} 

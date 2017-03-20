@@ -21,12 +21,21 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           env:
           - name: POSTGRES_USER
-            value: {{ default "postgres" .Values.postgresUser | quote }}
+            valueFrom: 
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.user
             # Required for pg_isready in the health probes.
           - name: PGUSER
-            value: {{ default "postgres" .Values.postgresUser | quote }}
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.user
           - name: POSTGRES_DB
-            value: {{ default "postgres" .Values.postgresDatabase | quote }}
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.database
           - name: PGDATA
             value: /var/lib/postgresql/data/pgdata
           - name: POSTGRES_PASSWORD
@@ -35,16 +44,22 @@ spec:
                 name: {{ template "name" . }}
                 key: postgres-password
           - name: CHADO_DB
-            value: {{ default "dictychado" .Values.chadoDatabase | quote }}
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: chado.database
           - name: CHADO_USER
-            value: {{ default "dictymaster" .Values.chadoUser | quote }}
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: chado.user
           - name: CHADO_PASS
             valueFrom:
               secretKeyRef:
                 name: {{ template "name" . }}
                 key: chado-password
           ports:
-          - name: postgresql
+          - name: {{ default "postgres" .Values.service.name }} 
             containerPort: 5432
           livenessProbe:
             exec:
