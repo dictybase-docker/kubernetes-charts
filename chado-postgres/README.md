@@ -33,26 +33,26 @@ The following tables lists the configurable parameters of the chado-postgres cha
 
 | Parameter                  | Description                                | Default                                                    |
 | -----------------------    | ----------------------------------         | ---------------------------------------------------------- |
-| `imageTag`                 | `postgres` image tag                       | `1.0.0`                                                    |
-| `imagePullPolicy`          | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent`    |
+| `image.repository`         | postgresql image                           | `dictybase/chado-postgres`                                 |
+| `image.tag`                | `postgres` image tag                       | `v1.0.0`                                                    |
+| `image.pullPolicy`         | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent`    |
 | `postgresUser`             | Username of new user to create.            | `postgres`                                                 |
 | `postgresPassword`         | Password for the new user.                 | random 10 characters                                       |
 | `postgresDatabase`         | Name for new database to create.           | `postgres`                                                 |
 | `chadoUser`                | Username of a regular user to create.      | `chadomaster`                                              |
 | `chadoPassword`            | Password for the regulsr user.             | random 12 characters                                       |
 | `chadoDatabase`            | Name for new user database to create.      | `dictychado`                                               |
-| `serviceName`              | Name of the service.                       | `postgresql`                                               |
-| `serviceType.enabled`      | Explicitly specify the service type.       | `false`                                                    |
-| `serviceType.name`         | Type of service.                           | `NodePort`                                                 |
+| `service.name`             | Name of the service.                       | `postgresql`                                               |
+| `service.type`             | Type of service.                           | `NodePort`                                                 |
 | `persistence.enabled`      | Use a PVC to persist data                  | `true`                                                     |
 | `persistence.storageClass` | Storage class of backing PVC               | `nil` (uses alpha storage class annotation)                |
 | `persistence.accessMode`   | Use volume as ReadOnly or ReadWrite        | `ReadWriteOnce`                                            |
 | `persistence.size`         | Size of data volume                        | `8Gi`                                                      |
 | `persistence.subPath`      | Subdirectory of the volume to mount at     | `postgresql-db`                                            |
 | `metrics.enabled`          | Start a side-car prometheus exporter       | `false`                                                    |
-| `metrics.image`            | Exporter image                             | `wrouesnel/postgres_exporter`                              |
-| `metrics.imageTag`         | Exporter image                             | `v0.1.1`                                                   |
-| `metrics.imagePullPolicy`  | Exporter image pull policy                 | `IfNotPresent`                                             |
+| `metrics.image.repository` | Exporter image                             | `wrouesnel/postgres_exporter`                              |
+| `metrics.image.tag`        | Exporter image                             | `v0.1.1`                                                   |
+| `metrics.image.pullPolicy` | Exporter image pull policy                 | `IfNotPresent`                                             |
 | `metrics.resources`        | Exporter resource requests/limit           | Memory: `256Mi`, CPU: `100m`                               |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,

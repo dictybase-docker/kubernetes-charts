@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ template "fullname" . }}
-          image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           env:
           - name: POSTGRES_USER
             value: {{ default "postgres" .Values.postgresUser | quote }}
@@ -32,7 +32,7 @@ spec:
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: {{ template "fullname" . }}
+                name: {{ template "name" . }}
                 key: postgres-password
           - name: CHADO_DB
             value: {{ default "dictychado" .Values.chadoDatabase | quote }}
@@ -41,7 +41,7 @@ spec:
           - name: CHADO_PASS
             valueFrom:
               secretKeyRef:
-                name: {{ template "fullname" . }}
+                name: {{ template "name" . }}
                 key: chado-password
           ports:
           - name: postgresql
@@ -64,7 +64,7 @@ spec:
             subPath: {{ .Values.persistence.subPath }}
   {{- if .Values.metrics.enabled }}
         - name: metrics 
-          image: "{{ .Values.metrics.image }}:{{ .Values.metrics.imageTag }}"
+          image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
           imagePullPolicy: {{ default "" .Values.metrics.imagePullPolicy | quote }}
           env:
           - name: DATA_SOURCE_NAME

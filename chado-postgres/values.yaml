@@ -2,18 +2,17 @@
 group: database
 provider: chado
 mode: standalone
+image: 
 ## postgres image repository
-image: "dictybase/chado-postgres"
+  repository: dictybase/chado-postgres
 ## chado-postgres image version
 ## ref: https://hub.docker.com/r/dictybase/chado-postgres/
 ##
-imageTag: "v1.0.0"
-
+  tag: v1.0.0
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-##
-# imagePullPolicy:
+  #pullPolicy:
 
 ## Create a database user
 ## Default: postgres
@@ -34,13 +33,14 @@ persistence:
   # storageClass:
   accessMode: ReadWriteOnce
   size: 4Gi
-  subPath: "postgresql-db"
+  subPath: postgresql-db
 
 metrics:
   enabled: false
-  image: wrouesnel/postgres_exporter
-  imageTag: v0.1.1
-  imagePullPolicy: IfNotPresent
+  image: 
+    repository: wrouesnel/postgres_exporter
+    tag: v0.1.1
+    pullPolicy: IfNotPresent
   resources:
     requests:
       memory: 256Mi
@@ -54,11 +54,10 @@ metrics:
     #memory: 256Mi
     #cpu: 100m
 
+service:
+  #name:
 ## Service name
 ## Default: postgresql
-# serviceName: 
+  type: NodePort
 
-## Service type
-serviceType:
-  enabled: false
-  name: NodePort
+
