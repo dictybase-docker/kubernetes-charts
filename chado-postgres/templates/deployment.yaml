@@ -19,6 +19,7 @@ spec:
       containers:
         - name: {{ template "fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args: ["-c", "/etc/postgresql/postgresql.conf"]
           env:
           - name: POSTGRES_USER
             valueFrom: 
