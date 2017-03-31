@@ -39,7 +39,7 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | `postgresUser`             | Username of new user to create.            | `postgres`                                                 |
 | `postgresPassword`         | Password for the new user.                 | random 10 characters                                       |
 | `postgresDatabase`         | Name for new database to create.           | `postgres`                                                 |
-| `chadoUser`                | Username of a regular user to create.      | `chadomaster`                                              |
+| `chadoUser`                | Username of a regular user to create.      | `dictymaster`                                              |
 | `chadoPassword`            | Password for the regulsr user.             | random 12 characters                                       |
 | `chadoDatabase`            | Name for new user database to create.      | `dictychado`                                               |
 | `service.name`             | Name of the service.                       | `postgresql`                                               |
