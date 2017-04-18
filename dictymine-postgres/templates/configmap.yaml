@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "name" . }} 
+  #annotations:
+    #"helm.sh/hook": pre-install
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  postgres.dictymine.user: {{ default "postgres" .Values.postgresUser | quote }}
+  postgres.dictymine.database: {{ default "postgres" .Values.postgresDatabase | quote }}
+  dictymine.user: {{ default "dictyminemaster" .Values.dictymineUser | quote }}
+  dictymine.database: {{ default "dictymine" .Values.dictymineDatabase | quote }} 
+  dictymine.items.database: {{ default "items_dictymine" .Values.dictymineItemsDatabase | quote }} 
+  dictymine.userprofile.database: {{ default "userprofile_dictymine" .Values.dictymineUserProfileDatabase | quote }} 

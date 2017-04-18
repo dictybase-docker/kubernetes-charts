@@ -1,0 +1,64 @@
+# Default values for chado-postgres.
+group: database
+provider: dictymine
+mode: standalone
+image: 
+## postgres image repository
+  repository: dictybase/dictymine-postgres
+## chado-postgres image version
+## ref: https://hub.docker.com/r/dictybase/chado-postgres/
+##
+  tag: v1.0.0
+## Specify a imagePullPolicy
+## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
+## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  #pullPolicy:
+
+## Create a database user
+## Default: postgres
+# postgresUser:
+## Default: random 10 character string
+# postgresPassword:
+
+## Create a database
+## Default: the postgres user
+# postgresDatabase:
+
+## Persist data to a persitent volume
+persistence:
+  enabled: true
+  ## If defined, volume.beta.kubernetes.io/storage-class: <storageClass>
+  ## Default: volume.alpha.kubernetes.io/storage-class: default
+  ##
+  # storageClass:
+  accessMode: ReadWriteOnce
+  size: 6Gi
+  subPath: dictymine-db
+
+metrics:
+  enabled: false
+  image: 
+    repository: wrouesnel/postgres_exporter
+    tag: v0.1.1
+    pullPolicy: IfNotPresent
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+#resources:
+  #requests:
+    #memory: 256Mi
+    #cpu: 100m
+
+service:
+## Service name
+## Default: dictymine-backend
+  #name: 
+  #type: NodePort
+  #port:
+
+

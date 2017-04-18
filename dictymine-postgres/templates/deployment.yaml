@@ -1,0 +1,111 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+        group: {{ default "" .Values.group | quote }}
+        provider: {{ default "" .Values.provider | quote }}
+        mode: {{ default "" .Values.mode | quote }}
+    spec:
+      containers:
+        - name: {{ template "fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
+          env:
+          - name: POSTGRES_USER
+            valueFrom: 
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.dictymine.user
+            # Required for pg_isready in the health probes.
+          - name: PGUSER
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.dictymine.user
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.dictymine.database
+          - name: PGDATA
+            value: /var/lib/postgresql/data/pgdata
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "name" . }}
+                key: postgres.dictymine.password
+          - name: INTERMINE_DB
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: dictymine.database
+          - name: INTERMINE_ITEMS_DB
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: dictymine.items.database
+          - name: INTERMINE_USERS_DB
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: dictymine.userprofile.database
+          - name: INTERMINE_USER
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "name" . }}
+                key: dictymine.user
+          - name: INTERMINE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "name" . }}
+                key: dictymine.password
+          ports:
+          - name: {{ default "dictymine-backend" .Values.service.name }} 
+            containerPort: 5432
+          livenessProbe:
+            exec:
+              command:
+              - pg_isready
+            initialDelaySeconds: 60
+            timeoutSeconds: 3
+          readinessProbe:
+            exec:
+              command:
+              - pg_isready
+            initialDelaySeconds: 60
+            timeoutSeconds: 3
+          volumeMounts:
+          - name: data
+            mountPath: /var/lib/postgresql/data/pgdata
+            subPath: {{ .Values.persistence.subPath }}
+  {{- if .Values.metrics.enabled }}
+        - name: metrics 
+          image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
+          imagePullPolicy: {{ default "" .Values.metrics.imagePullPolicy | quote }}
+          env:
+          - name: DATA_SOURCE_NAME
+            value: postgresql://postgres@127.0.0.1:5432?sslmode=disable
+          ports:
+          - name: metrics
+            containerPort: 9188
+          resources:
+  {{ toYaml .Values.metrics.resources | indent 10 }}
+  {{- end }}
+      volumes:
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
