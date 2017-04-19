@@ -6,7 +6,7 @@ mode: standalone
 ## postgres image repository, tag and pull policy
 image: 
   repository: dictybase/dictymine-postgres
-  tag: v1.0.0
+  tag: v1.0.2
   imagepullPolicy: IfNotPresent
 
 ## superuser and database
