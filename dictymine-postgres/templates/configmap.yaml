@@ -10,9 +10,9 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 data:
-  postgres.dictymine.user: {{ default "postgres" .Values.postgresUser | quote }}
-  postgres.dictymine.database: {{ default "postgres" .Values.postgresDatabase | quote }}
-  dictymine.user: {{ default "dictyminemaster" .Values.dictymineUser | quote }}
-  dictymine.database: {{ default "dictymine" .Values.dictymineDatabase | quote }} 
-  dictymine.items.database: {{ default "items_dictymine" .Values.dictymineItemsDatabase | quote }} 
-  dictymine.userprofile.database: {{ default "userprofile_dictymine" .Values.dictymineUserProfileDatabase | quote }} 
+  postgres.dictymine.user: {{  .Values.postgresUser | quote }}
+  postgres.dictymine.database: {{  .Values.postgresDatabase | quote }}
+  dictymine.user: {{ .Values.dictymineUser | quote }}
+  dictymine.database: { .Values.dictymineDatabase | quote }} 
+  dictymine.items.database: {{  .Values.dictymineItemsDatabase | quote }} 
+  dictymine.userprofile.database: {{ .Values.dictymineUserProfileDatabase | quote }} 

@@ -12,13 +12,14 @@ spec:
     metadata:
       labels:
         app: {{ template "fullname" . }}
-        group: {{ default "" .Values.group | quote }}
-        provider: {{ default "" .Values.provider | quote }}
-        mode: {{ default "" .Values.mode | quote }}
+        group: {{ .Values.group | quote }}
+        provider: {{ .Values.provider | quote }}
+        mode: {{ .Values.mode | quote }}
     spec:
       containers:
         - name: {{ template "fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
           args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
           env:
           - name: POSTGRES_USER
@@ -70,7 +71,7 @@ spec:
                 name: {{ template "name" . }}
                 key: dictymine.password
           ports:
-          - name: {{ default "dictymine-backend" .Values.service.name }} 
+          - name: "{{ .Values.service.name }}"
             containerPort: 5432
           livenessProbe:
             exec:
@@ -91,7 +92,7 @@ spec:
   {{- if .Values.metrics.enabled }}
         - name: metrics 
           image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"
-          imagePullPolicy: {{ default "" .Values.metrics.imagePullPolicy | quote }}
+          imagePullPolicy: {{ .Values.metrics.imagePullPolicy | quote }}
           env:
           - name: DATA_SOURCE_NAME
             value: postgresql://postgres@127.0.0.1:5432?sslmode=disable

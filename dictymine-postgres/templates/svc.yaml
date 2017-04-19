@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ default "postgres" .Values.service.name }}  
+  name: {{ .Values.service.name | quote }}  
   labels:
     app: {{ template "fullname" . }}
     chart: "{{.Chart.Name}}-{{.Chart.Version}}"
@@ -13,10 +13,10 @@ metadata:
     prometheus.io/port: "9187"
 {{- end }}
 spec:
+  type: {{ Values.service.type | quote }}
   ports:
-  - name: {{ default "dictymine-backend" .Values.service.name }}  
-    port: {{ default 5434 .Values.service.port }}
-    targetPort: {{ default "dictymine-backend" .Values.service.name }}   
+  - name: {{ .Values.service.name | quote }}  
+    port: {{ .Values.service.port | quote }}
+    targetPort: {{ .Values.service.name | quote }}   
   selector:
     app: {{ template "fullname" . }}
-    type: {{ default "nodePort" .Values.service.type }}

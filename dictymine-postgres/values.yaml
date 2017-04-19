@@ -2,35 +2,27 @@
 group: database
 provider: dictymine
 mode: standalone
+
+## postgres image repository, tag and pull policy
 image: 
-## postgres image repository
   repository: dictybase/dictymine-postgres
-## chado-postgres image version
-## ref: https://hub.docker.com/r/dictybase/chado-postgres/
-##
   tag: v1.0.0
-## Specify a imagePullPolicy
-## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
-## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-  #pullPolicy:
+  imagepullPolicy: IfNotPresent
 
-## Create a database user
-## Default: postgres
-# postgresUser:
-## Default: random 10 character string
-# postgresPassword:
+## superuser and database
+postgresUser: postgres
+postgresDatabase: postgres
 
-## Create a database
-## Default: the postgres user
-# postgresDatabase:
+## dictymine users and databases
+dictymineUser: dictyminemaster
+dictymineDatabase: dictymine
+dictymineItemsDatabase: items_dictymine
+dictymineUserProfileDatabase: userprofile_dictymine
 
 ## Persist data to a persitent volume
 persistence:
   enabled: true
-  ## If defined, volume.beta.kubernetes.io/storage-class: <storageClass>
-  ## Default: volume.alpha.kubernetes.io/storage-class: default
-  ##
-  # storageClass:
+  storageClass: default
   accessMode: ReadWriteOnce
   size: 6Gi
   subPath: dictymine-db
@@ -40,7 +32,7 @@ metrics:
   image: 
     repository: wrouesnel/postgres_exporter
     tag: v0.1.1
-    pullPolicy: IfNotPresent
+    imagepullPolicy: IfNotPresent
   resources:
     requests:
       memory: 256Mi
@@ -54,11 +46,8 @@ metrics:
     #memory: 256Mi
     #cpu: 100m
 
+# Setup for service, don't uncomment rather override it
 service:
-## Service name
-## Default: dictymine-backend
-  #name: 
-  #type: NodePort
-  #port:
-
-
+  name: dictymine-backend
+  type: NodePort 
+  port: 5434
