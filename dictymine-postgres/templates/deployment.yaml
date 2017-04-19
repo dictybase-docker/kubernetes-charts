@@ -71,7 +71,7 @@ spec:
                 name: {{ template "name" . }}
                 key: dictymine.password
           ports:
-          - name: "{{ .Values.service.name }}"
+          - name: {{ .Values.service.name | trunc 15 | quote }}
             containerPort: 5432
           livenessProbe:
             exec:
@@ -88,7 +88,7 @@ spec:
           volumeMounts:
           - name: data
             mountPath: /var/lib/postgresql/data/pgdata
-            subPath: {{ .Values.persistence.subPath }}
+            subPath: {{ .Values.persistence.subPath | quote }}
   {{- if .Values.metrics.enabled }}
         - name: metrics 
           image: "{{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}"

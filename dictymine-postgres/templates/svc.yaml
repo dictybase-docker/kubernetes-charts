@@ -13,10 +13,10 @@ metadata:
     prometheus.io/port: "9187"
 {{- end }}
 spec:
-  type: {{ Values.service.type | quote }}
+  type: {{ .Values.service.type | quote }}
   ports:
   - name: {{ .Values.service.name | quote }}  
-    port: {{ .Values.service.port | quote }}
-    targetPort: {{ .Values.service.name | quote }}   
+    port: {{ .Values.service.port  }}
+    targetPort: {{ .Values.service.name | trunc 15 | quote }}   
   selector:
     app: {{ template "fullname" . }}

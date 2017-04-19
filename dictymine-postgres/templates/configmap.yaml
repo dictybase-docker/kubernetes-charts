@@ -11,8 +11,8 @@ metadata:
     heritage: "{{ .Release.Service }}"
 data:
   postgres.dictymine.user: {{  .Values.postgresUser | quote }}
-  postgres.dictymine.database: {{  .Values.postgresDatabase | quote }}
+  postgres.dictymine.database: {{  .Values.postgresDatabase | quote  }}
   dictymine.user: {{ .Values.dictymineUser | quote }}
-  dictymine.database: { .Values.dictymineDatabase | quote }} 
-  dictymine.items.database: {{  .Values.dictymineItemsDatabase | quote }} 
+  dictymine.database: {{ .Values.dictymineDatabase | quote }} 
+  dictymine.items.database: {{  .Values.dictymineItemsDatabase  | quote }} 
   dictymine.userprofile.database: {{ .Values.dictymineUserProfileDatabase | quote }} 
