@@ -35,7 +35,7 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | -----------------------    | ----------------------------------         | ---------------------------------------------------------- |
 | `image.repository`         | postgresql image                           | `dictybase/dictymine-postgres`                             |
 | `image.tag`                | `dictymine-postgres` image tag             | `v1.0.0`                                                   |
-| `image.pullPolicy`         | Image pull policy                          | `Always` if `imageTag` is `latest`, else `IfNotPresent`    |
+| `image.pullPolicy`         | Image pull policy                          | `IfNotPresent`                                             |
 | `postgresUser`             | Username of new user to create.            | `postgres`                                                 |
 | `postgresPassword`         | Password for the new user.                 | random 10 characters                                       |
 | `postgresDatabase`         | Name for new database to create.           | `postgres`                                                 |
@@ -48,10 +48,10 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | `service.type`             | Type of service.                           | `NodePort`                                                 |
 | `service.port`             | Port of service.                           | `5434`                                                     |
 | `persistence.enabled`      | Use a PVC to persist data                  | `true`                                                     |
-| `persistence.storageClass` | Storage class of backing PVC               | `nil` (uses alpha storage class annotation)                |
+| `persistence.storageClass` | Storage class of backing PVC               | `default` (uses alpha storage class annotation)                |
 | `persistence.accessMode`   | Use volume as ReadOnly or ReadWrite        | `ReadWriteOnce`                                            |
-| `persistence.size`         | Size of data volume                        | `8Gi`                                                      |
-| `persistence.subPath`      | Subdirectory of the volume to mount at     | `postgresql-db`                                            |
+| `persistence.size`         | Size of data volume                        | `6Gi`                                                      |
+| `persistence.subPath`      | Subdirectory of the volume to mount at     | `dictymine-db`                                            |
 | `metrics.enabled`          | Start a side-car prometheus exporter       | `false`                                                    |
 | `metrics.image.repository` | Exporter image                             | `wrouesnel/postgres_exporter`                              |
 | `metrics.image.tag`        | Exporter image                             | `v0.1.1`                                                   |
