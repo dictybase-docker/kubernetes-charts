@@ -20,7 +20,7 @@ spec:
         - name: {{ template "fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
-          args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
+          args: {{ .Values.server.args }}
           env:
           - name: POSTGRES_USER
             valueFrom: 
@@ -100,7 +100,9 @@ spec:
           - name: metrics
             containerPort: 9188
           resources:
-  {{ toYaml .Values.metrics.resources | indent 10 }}
+            requests:
+              cpu: {{ .Values.metrics.resources.requests.cpu | quote }}
+              memory: {{ .Values.metrics.resources.requests.memory | quote }}
   {{- end }}
       volumes:
       - name: data
