@@ -3,3 +3,4 @@ app.rsa*
 client_secret*
 pg-credentials/
 config
+*.tgz
