@@ -1,6 +1,6 @@
 description: A Helm chart for postgresql database to run dictymine instance
 name: dictymine-postgres
-version: 1.0.0
+version: 1.0.2
 sources:
   - https://hub.docker.com/r/dictybase/dictymine-postgres
   - https://github.com/dictybase-docker/dictymine-postgres

@@ -20,7 +20,16 @@ spec:
         - name: {{ template "fullname" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.imagePullPolicy | quote }}
-          args: {{ .Values.server.args }}
+          args: [
+                  "-c",
+                  "config_file=/etc/postgresql/postgresql.conf",
+                  "-c",
+                  "work_mem=10MB",
+                  "-c",
+                  "max_connections=30",
+                  "-c",
+                  "maintenance_work_mem=100MB"
+                ]
           env:
           - name: POSTGRES_USER
             valueFrom: 

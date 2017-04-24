@@ -58,8 +58,15 @@ service:
 # command line argument that is passed to the postgresql server daemon
 # make sure always to use the first two argument to use the custom configuration 
 # file use the by the docker container
-server:
-  args:
-    - "-c"
-    - "config_file=/etc/postgresql/postgresql.conf"
+#server:
+  #args: [
+          #"-c",
+          #"config_file=/etc/postgresql/postgresql.conf",
+          #"-c",
+          #"work_mem=10MB",
+          #"-c",
+          #"maintenance_work_mem=100MB",
+          #"-c",
+          #"max_connections=30"
+        #]
 
