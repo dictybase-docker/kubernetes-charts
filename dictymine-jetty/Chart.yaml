@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for jetty servlet container for deploying dictymine
+name: dictymine-jetty
+version: 1.0.0
