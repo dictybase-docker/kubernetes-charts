@@ -26,7 +26,7 @@ spec:
                   "-c",
                   "work_mem=10MB",
                   "-c",
-                  "max_connections=30",
+                  "max_connections=70",
                   "-c",
                   "maintenance_work_mem=100MB"
                 ]
