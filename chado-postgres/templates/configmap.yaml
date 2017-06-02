@@ -10,7 +10,7 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 data:
-  postgres.user: {{ default "postgres" .Values.postgresUser | quote }}
-  postgres.database: {{ default "postgres" .Values.postgresDatabase | quote }}
-  chado.user: {{ default "dictymaster" .Values.chadoUser | quote }}
-  chado.database: {{ default "dictychado" .Values.chadoDatabase | quote }} 
+  postgres.user: {{ .Values.postgresUser | quote }}
+  postgres.database: {{ .Values.postgresDatabase | quote }}
+  chado.user: {{  .Values.chadoUser | quote }}
+  chado.database: {{ .Values.chadoDatabase | quote }} 

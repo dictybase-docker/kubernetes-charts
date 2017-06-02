@@ -14,15 +14,13 @@ image:
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
   #pullPolicy:
 
-## Create a database user
-## Default: postgres
-# postgresUser:
-## Default: random 10 character string
-# postgresPassword:
+## superuser and database
+postgresUser: postgres
+postgresDatabase: postgres
 
-## Create a database
-## Default: the postgres user
-# postgresDatabase:
+## chado user and database
+chadoUser: chadomaster
+chadoDatabase: dictychado
 
 ## Persist data to a persitent volume
 persistence:
