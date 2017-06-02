@@ -52,10 +52,9 @@ metrics:
     #memory: 256Mi
     #cpu: 100m
 
+# Setup for service, don't uncomment rather override it
 service:
-  #name:
-## Service name
-## Default: postgresql
+  name: chado-backend
   type: NodePort
 
 
