@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: dictybase/chado-sqitch
-  tag: 1.23.7
+  tag: 1.23.9
   pullPolicy: Always
 
 # ConfigMaps and secrets keys for configuring chado database access.
