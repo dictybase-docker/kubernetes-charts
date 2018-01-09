@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "dictycontent-postgres.name" . }} 
+  labels:
+    app: {{ template "dictycontent-postgres.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  postgres.dictycontent.user: {{  .Values.postgresUser | quote }}
+  postgres.dictycontent.database: {{  .Values.postgresDatabase | quote  }}
+  postgres.dictycontent.initdbargs: {{ default "" .Values.postgresInitdbArgs | quote }}
+  postgres.dictycontent.initdbwaldir: {{ default "" .Values.postgresInitdbWaldir | quote }}
+  dictycontent.user: {{ .Values.dictycontentUser | quote }}
+  dictycontent.database: {{ .Values.dictycontentDatabase | quote }} 
