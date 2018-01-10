@@ -6,7 +6,7 @@ provider: dictycontent
 mode: standalone
 image:
   repository: dictybase/dictycontent-postgres
-  tag: 1.0.0
+  tag: 1.1.0
   pullPolicy: Always
 
 ## superuser and database
