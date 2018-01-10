@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "dictyuser-postgres.name" . }} 
+  labels:
+    app: {{ template "dictyuser-postgres.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  postgres.dictyuser.user: {{  .Values.postgresUser | quote }}
+  postgres.dictyuser.database: {{  .Values.postgresDatabase | quote  }}
+  postgres.dictyuser.initdbargs: {{ default "" .Values.postgresInitdbArgs | quote }}
+  postgres.dictyuser.initdbwaldir: {{ default "" .Values.postgresInitdbWaldir | quote }}
+  dictyuser.user: {{ .Values.dictyuserUser | quote }}
+  dictyuser.database: {{ .Values.dictyuserDatabase | quote }} 
