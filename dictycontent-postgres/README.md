@@ -32,7 +32,7 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | Parameter                     | Description                                | Default                                         |
 | -----------------------       | ----------------------------------         | ------------------------------------------------|
 | `image.repository`            | postgresql image                           | `dictybase/dictycontent-postgres`               |
-| `image.tag`                   | `dictycontent-postgres` image tag          | `v1.0.0`                                        |
+| `image.tag`                   | `dictycontent-postgres` image tag          | `v1.1.0`                                        |
 | `image.pullPolicy`            | Image pull policy                          | `Always`                                        |
 | `postgresUser`                | Username of new user to create.            | `postgres`                                      |
 | `postgresPassword`            | Password for the new user.                 |  Required                                       |
