@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "dictyuser-schema.fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+spec:
+  template:
+    metadata:
+      name: {{ template "dictyuser-schema.fullname" . }}
+      labels:
+        app: {{ template "dictyuser-schema.fullname" . }}
+        group: {{ default "" .Values.group | quote }}
+        provider: {{ default "" .Values.provider | quote }}
+        mode: {{ default "" .Values.mode | quote }}
+    spec:
+      containers:
+      - name: {{ template "dictyuser-schema.fullname" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        command: ["goose"]
+        args: ["-dir", "/usr/src/appdata", "postgres","user=$(USER) dbname=$(DBNAME) host=dictyuser-backend port=$(DICTYUSER_BACKEND_SERVICE_PORT) password=$(PASS) sslmode=disable", "up"]
+        env:
+        - name: DBNAME
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ .Values.dictyuserPostgres.configMap.name }}"
+              key: "{{ .Values.dictyuserPostgres.configMap.database }}"
+        - name: USER
+          valueFrom:
+            configMapKeyRef:
+              name: "{{ .Values.dictyuserPostgres.configMap.name }}"
+              key: "{{ .Values.dictyuserPostgres.configMap.user }}"
+        - name: PASS
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.dictyuserPostgres.secrets.name }}"
+              key: "{{ .Values.dictyuserPostgres.secrets.password }}"
+      restartPolicy: Never

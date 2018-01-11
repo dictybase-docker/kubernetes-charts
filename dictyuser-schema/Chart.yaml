@@ -1,0 +1,10 @@
+apiVersion: v1
+description: A Helm chart for running dictyuser database migrations.
+name: dictyuser-schema
+version: 1.0.0
+sources:
+  - https://hub.docker.com/r/dictybase/dictyuser-schema
+  - https://github.com/dictybase-docker/dictyuser-schema
+maintainers:
+  - name: Siddhartha Basu
+    email: siddhartha-basu@northwestern.edu
