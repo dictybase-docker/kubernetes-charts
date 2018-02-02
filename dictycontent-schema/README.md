@@ -33,7 +33,7 @@ The following tables lists the configurable parameters of the **chado-sqitch** c
 | `dictyContentPostgres.config.database`  | Name of the `ConfigMap` key with database name             | `dictycontent.database`                                          |
 | `dictyContentPostgres.config.user`      | Name of the `ConfigMap` key with user name                 | `dictycontent.user`                                              |
 | `dictyContentPostgres.secrets.name`     | Name of the `Secrets` that has database credentials        | `dictycontent-postgres`                                          |
-| `dictyContentPostgres.secrets.password` | Name of the `Secrets` that has database password           | `dictycontent.password`                                          |
+| `dictyContentPostgres.secrets.password` | Name of the `Secrets` key with database password           | `dictycontent.password`                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. 
 

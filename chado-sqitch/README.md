@@ -37,7 +37,7 @@ The following tables lists the configurable parameters of the **chado-sqitch** c
 | `chadoPostgres.config.database`  | Name of the `ConfigMap` key with database name             | `chado.database`                                          |
 | `chadoPostgres.config.user`      | Name of the `ConfigMap` key with user name                 | `chado.user`                                              |
 | `chadoPostgres.secrets.name`     | Name of the `Secrets` that has database credentials        | `chado-postgres`                                          |
-| `chadoPostgres.secrets.password` | Name of the `Secrets` that has database password           | `chado-password`                                          |
+| `chadoPostgres.secrets.password` | Name of the `Secrets` key with database password           | `chado-password`                                          |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. 
 

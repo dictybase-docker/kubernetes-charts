@@ -6,7 +6,7 @@ image:
   tag: 1.0.0
   pullPolicy: IfNotPresent
 
-# ConfigMaps and secrets keys for configuring chado database access.
+# ConfigMaps and secrets keys for configuring backend database access.
 # It should match the configMaps, secrets and their key names deployed with
 # dictycontent-postgres chart.
 dictyContentPostgres:
