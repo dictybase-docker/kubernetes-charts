@@ -1,4 +1,4 @@
-# chado-sqitch
+# dictycontent-api-server
 This [helm](https://github.com/kubernetes/helm) chart provides
 [kubernetes](http://kubernetes.io) manifests for running
 [dictycontent-api-server](https://hub.docker.com/r/dictybase/modware-content/).
