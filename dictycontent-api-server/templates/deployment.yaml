@@ -1,0 +1,54 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "dictycontent-api-server.fullname" . }}
+  labels:
+    app: {{ template "dictycontent-api-server.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "dictycontent-api-server.fullname" . }}
+        group: {{ .Values.group | quote }}
+        provider: {{ .Values.provider | quote }}
+        mode: {{ .Values.mode | quote }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["app"]
+          args: ["--db $(DBNAME) -u $(USER) -p $(PASS)"]
+          env:
+          - name: DBNAME
+            valueFrom:
+              configMapKeyRef:
+                name: "{{ .Values.dictyContentPostgres.configMap.name }}"
+                key: "{{ .Values.dictyContentPostgres.configMap.database }}"
+          - name: USER
+            valueFrom:
+              configMapKeyRef:
+                name: "{{ .Values.dictyContentPostgres.configMap.name }}"
+                key: "{{ .Values.dictyContentPostgres.configMap.user }}"
+          - name: PASS
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Values.dictyContentPostgres.secrets.name }}"
+                key: "{{ .Values.dictyContentPostgres.secrets.password }}"
+          ports:
+          - name: {{ .Values.service.name | trunc 15 | quote }}
+            containerPort: {{ .Values.service.port }}
+          #livenessProbe:
+            #httpGet:
+              #path: /healtz
+              #port: {{ .Values.service.internalPort }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}

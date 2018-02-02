@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name | quote }}
+  labels:
+    app: {{ template "dictycontent-api-server.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - name: {{ .Values.service.name | quote }}  
+    port: {{ .Values.service.externalPort  }}
+    targetPort: {{ .Values.service.name | trunc 15 | quote }}   
+  selector:
+    app: {{ template "dictycontent-api-server.name" . }}
