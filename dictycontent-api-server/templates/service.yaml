@@ -11,7 +11,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
   - name: {{ .Values.service.name | quote }}  
-    port: {{ .Values.service.externalPort  }}
-    targetPort: {{ .Values.service.name | trunc 15 | quote }}   
+    port: {{ .Values.service.port  }}
+    targetPort: {{ .Values.service.name | quote }}   
   selector:
     app: {{ template "dictycontent-api-server.name" . }}

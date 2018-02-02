@@ -40,8 +40,8 @@ spec:
                 name: "{{ .Values.dictyContentPostgres.secrets.name }}"
                 key: "{{ .Values.dictyContentPostgres.secrets.password }}"
           ports:
-          - name: {{ .Values.service.name | trunc 15 | quote }}
-            containerPort: {{ .Values.service.port }}
+          - name: "{{ .Values.service.name  }}"
+            containerPort: "{{ .Values.service.port }}"
           #livenessProbe:
             #httpGet:
               #path: /healtz
