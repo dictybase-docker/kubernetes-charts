@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: {{ template "dictycontent-api-server.fullname" . }}
@@ -21,8 +21,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["app"]
-          args: ["--db $(DBNAME) -u $(USER) -p $(PASS)"]
+          command: ["/bin/sh", "-c"]
+          args: ["app --dictycontent-db $(DBNAME) --dictycontent-user $(USER) --dictycontent-pass $(PASS)"]
           env:
           - name: DBNAME
             valueFrom:
@@ -40,14 +40,12 @@ spec:
                 name: "{{ .Values.dictyContentPostgres.secrets.name }}"
                 key: "{{ .Values.dictyContentPostgres.secrets.password }}"
           ports:
-          - name: "{{ .Values.service.name  }}"
-            containerPort: "{{ .Values.service.port }}"
-          #livenessProbe:
-            #httpGet:
-              #path: /healtz
-              #port: {{ .Values.service.internalPort }}
+          - name: {{ .Values.service.name | quote }}
+            containerPort: {{ .Values.service.port }}
+      {{- if .Values.resources }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
+      {{- end }}
     {{- if .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
