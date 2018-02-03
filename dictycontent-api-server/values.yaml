@@ -36,3 +36,9 @@ service:
   #  cpu: 100m
   #  memory: 128Mi
 # nodeSelector: {}
+healthCheck:
+  # configure liveness probes for 
+  # container
+  path: "/healthz"
+  delay: 6
+
