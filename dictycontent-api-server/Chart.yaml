@@ -1,11 +1,11 @@
 apiVersion: v1
 description: A Helm chart for Kubernetes to run dictycontent api server.
 name: dictycontent-api-server
-version: 0.0.1
+version: 0.0.2
 sources:
   - https://hub.docker.com/r/dictybase/modware-content
   - https://github.com/dictyBase/modware-content
 maintainers:
   - name: Siddhartha Basu
     email: siddhartha-basu@northwestern.edu
-appVersion: 0.0.2
+appVersion: 0.0.4
