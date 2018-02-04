@@ -3,7 +3,7 @@ entries:
   dictycontent-api-server:
   - apiVersion: v1
     appVersion: 0.0.4
-    created: 2018-02-03T20:23:39.784963727-06:00
+    created: 2018-02-03T20:28:16.996285559-06:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: 15d329756ba0837e41269b1fa3761c2d99a94a40551395473d344ee221c2e57a
     maintainers:
@@ -14,12 +14,12 @@ entries:
     - https://hub.docker.com/r/dictybase/modware-content
     - https://github.com/dictyBase/modware-content
     urls:
-    - https://dictybase.github.io/kubernetes-charts/dictycontent-api-server-0.0.2.tgz
+    - https://dictybase-docker.github.io/kubernetes-charts/dictycontent-api-server-0.0.2.tgz
     version: 0.0.2
   dictycontent-postgres:
   - apiVersion: v1
     appVersion: 9.6.6
-    created: 2018-02-03T20:23:39.78541112-06:00
+    created: 2018-02-03T20:28:16.996716477-06:00
     description: A Helm chart for Kubernetes to run dictycontent postgresql database
     digest: e71be3c69830117f410bb658e7acde130c3e96ce89c1729c77402b5612070f9e
     maintainers:
@@ -30,11 +30,11 @@ entries:
     - https://hub.docker.com/r/dictybase/dictycontent-postgres
     - https://github.com/dictybase-docker/dictycontent-postgres
     urls:
-    - https://dictybase.github.io/kubernetes-charts/dictycontent-postgres-1.1.0.tgz
+    - https://dictybase-docker.github.io/kubernetes-charts/dictycontent-postgres-1.1.0.tgz
     version: 1.1.0
   dictycontent-schema:
   - apiVersion: v1
-    created: 2018-02-03T20:23:39.785672153-06:00
+    created: 2018-02-03T20:28:16.996964508-06:00
     description: A Helm chart for running dictycontent database migrations.
     digest: 26e4e2fa2f8a36b5a6e79ffeae894bdcc1c1b9a18e6406627129b348311af314
     maintainers:
@@ -45,6 +45,6 @@ entries:
     - https://hub.docker.com/r/dictybase/dictycontent-schema
     - https://github.com/dictybase-docker/dictycontent-schema
     urls:
-    - https://dictybase.github.io/kubernetes-charts/dictycontent-schema-1.0.0.tgz
+    - https://dictybase-docker.github.io/kubernetes-charts/dictycontent-schema-1.0.0.tgz
     version: 1.0.0
-generated: 2018-02-03T20:23:39.784435299-06:00
+generated: 2018-02-03T20:28:16.995774206-06:00
