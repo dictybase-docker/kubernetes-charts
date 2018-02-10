@@ -3,7 +3,22 @@ entries:
   dictycontent-api-server:
   - apiVersion: v1
     appVersion: 0.0.5
-    created: 2018-02-09T13:28:20.737005387-06:00
+    created: 2018-02-10T12:19:21.000464483-06:00
+    description: A Helm chart for Kubernetes to run dictycontent api server.
+    digest: f8f2d62c76c99e485503bbdcbc4a7099ae80face46810ca95ca026ef999e1a09
+    maintainers:
+    - email: siddhartha-basu@northwestern.edu
+      name: Siddhartha Basu
+    name: dictycontent-api-server
+    sources:
+    - https://hub.docker.com/r/dictybase/modware-content
+    - https://github.com/dictyBase/modware-content
+    urls:
+    - dictycontent-api-server-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v1
+    appVersion: 0.0.5
+    created: 2018-02-10T12:19:21.000054535-06:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: a12fccee245016af97a885c9f112b396480e1ac7d2c69e8ddfd55b86d03ff27b
     maintainers:
@@ -18,7 +33,7 @@ entries:
     version: 0.0.3
   - apiVersion: v1
     appVersion: 0.0.4
-    created: 2018-02-09T13:28:20.736301476-06:00
+    created: 2018-02-10T12:19:20.999604994-06:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: 15d329756ba0837e41269b1fa3761c2d99a94a40551395473d344ee221c2e57a
     maintainers:
@@ -34,7 +49,7 @@ entries:
   dictycontent-postgres:
   - apiVersion: v1
     appVersion: 9.6.6
-    created: 2018-02-09T13:28:20.738306804-06:00
+    created: 2018-02-10T12:19:21.001412996-06:00
     description: A Helm chart for Kubernetes to run dictycontent postgresql database
     digest: e71be3c69830117f410bb658e7acde130c3e96ce89c1729c77402b5612070f9e
     maintainers:
@@ -49,7 +64,7 @@ entries:
     version: 1.1.0
   dictycontent-schema:
   - apiVersion: v1
-    created: 2018-02-09T13:28:20.73906178-06:00
+    created: 2018-02-10T12:19:21.001773884-06:00
     description: A Helm chart for running dictycontent database migrations.
     digest: 26e4e2fa2f8a36b5a6e79ffeae894bdcc1c1b9a18e6406627129b348311af314
     maintainers:
@@ -62,4 +77,4 @@ entries:
     urls:
     - dictycontent-schema-1.0.0.tgz
     version: 1.0.0
-generated: 2018-02-09T13:28:20.735349504-06:00
+generated: 2018-02-10T12:19:20.998786744-06:00
