@@ -1,36 +1,41 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{.Release.Name | quote}}
+  name: {{ template "authserver.fullname" . }}
   labels:
-    app: {{.Release.Name | quote}}
-    heritage: {{.Release.Service | quote}} 
-      # This makes it easy to audit chart usage.
-    chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    app: {{ template "authserver.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
-  replicas: {{default 1 .Values.replicas | quote}}
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: {{.Release.Name | quote}}
+        app: {{ template "authserver.fullname" . }}
         group: {{.Values.group | quote}}
         provider: {{.Values.provider | quote}}
         mode: {{.Values.mode |quote}}
     spec:
       containers:
-        - name: {{.Release.Name |quote}}
-          image: "{{.Values.dockerNamespace}}/authserver:{{.Values.dockerTag}}"
-          command: ["/bin/bash", "-c"]
-          args: ["app run --pkey /etc/authserver/jwt-public-key --config /etc/authserver/client-private-keys  --prkey /etc/authserver/jwt-private-key"]
-          imagePullPolicy: {{.Values.pullPolicy |quote}}
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args: ["app --log-format json run --public-key /etc/authfile/authserver.jwt.publicKey --config /etc/authfile/authserver.oauth.configFile --private-key /etc/authfile/authserver.jwt.privateKey"]
           ports:
-            - name: {{.Values.portName | quote}}
-              containerPort: {{.Values.portNum | quote}}
+            - name: {{ .Values.service.name | quote }}
+              containerPort: {{ .Values.service.port }}
+          livenessProbe:
+            httpGet:
+              path: "{{ .Values.healthCheck.path }}"
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: {{ .Values.healthCheck.delay }}
           volumeMounts:
-            - name: auth-secrets
-              mountPath: /etc/authserver
+            - name: oauth
+              mountPath: /etc/authfile
               readOnly: true
       volumes:
-        - name: auth-secrets
+        - name: oauth
           secret: 
-            secretName: {{.Values.secretName}}
+            secretName: {{ template "authserver.name" . }}
