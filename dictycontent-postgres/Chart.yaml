@@ -1,7 +1,7 @@
 apiVersion: v1
 description: A Helm chart for Kubernetes to run dictycontent postgresql database
 name: dictycontent-postgres
-version: 1.1.0
+version: 2.0.1
 sources:
   - https://hub.docker.com/r/dictybase/dictycontent-postgres
   - https://github.com/dictybase-docker/dictycontent-postgres
