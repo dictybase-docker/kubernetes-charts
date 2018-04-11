@@ -27,6 +27,10 @@ postgresInitdbArgs: "--data-checksums"
 dictycontentUser: dictycontentmaster
 dictycontentDatabase: dictycontent
 
+## dictyuser users and databases
+dictyuserUser: dictyusermaster
+dictyuserDatabase: dictyuser
+
 ## Persist data to a persistent volume
 persistence:
   enabled: true

@@ -85,6 +85,21 @@ spec:
               secretKeyRef:
                 name: {{ template "dictycontent-postgres.name" . }}
                 key: dictycontent.password
+          - name: DICTYUSER_DB
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "dictycontent-postgres.name" . }}
+                key: dictyuser.database
+          - name: DICTYUSER_USER
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "dictycontent-postgres.name" . }}
+                key: dictyuser.user
+          - name: DICTYUSER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "dictycontent-postgres.name" . }}
+                key: dictyuser.password
           - name: POD_IP
             valueFrom: { fieldRef: { fieldPath: status.podIP }}
           ports:

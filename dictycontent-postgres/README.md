@@ -41,6 +41,9 @@ The following tables lists the configurable parameters of the chado-postgres cha
 | `dictycontentUser`            | Username of a dictycontent user to create. | `dictycontentmaster`                            |
 | `dictycontentPassword`        | Password for the dictycontent user.        |  Required                                       |
 | `dictycontentDatabase`        | Name for dictycontent database to create.  | `dictycontent`                                  |
+| `dictyuserUser`               | Username of a dictyuser user to create.    | `dictyusermaster`                            |
+| `dictyuserPassword`           | Password for the dictyuser user.           |  Required                                       |
+| `dictyuserDatabase`           | Name for dictyuser database to create.     | `dictyuser`                                  |
 | `service.name`                | Name of the service.                       | `dictycontent-backend`                          |
 | `service.type`                | Type of service.                           | `NodePort`                                      |
 | `service.port`                | Port of service.                           | `5435`                                          |
