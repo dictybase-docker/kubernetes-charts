@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: dictybase/dictyuser-schema
-  tag: 1.0.1
+  tag: 2.0.0
   pullPolicy: IfNotPresent
 
 # ConfigMaps and secrets keys for configuring chado database access.
@@ -11,11 +11,11 @@ image:
 # dictyuser-postgres chart.
 dictyuserPostgres:
   configMap:
-    name: dictyuser-postgres
+    name: dictycontent-postgres
     user: dictyuser.user
     database: dictyuser.database
   secrets:
-    name: dictyuser-postgres
+    name: dictycontent-postgres
     password: dictyuser.password
 
 

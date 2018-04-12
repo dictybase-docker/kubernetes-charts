@@ -21,7 +21,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: "{{ .Values.image.pullPolicy }}"
         command: ["goose"]
-        args: ["-dir", "/usr/src/appdata", "postgres","user=$(USER) dbname=$(DBNAME) host=dictyuser-backend port=$(DICTYUSER_BACKEND_SERVICE_PORT) password=$(PASS) sslmode=disable", "up"]
+        args: ["-dir", "/usr/src/appdata", "postgres","user=$(USER) dbname=$(DBNAME) host=dictycontent-backend port=$(DICTYCONTENT_BACKEND_SERVICE_PORT) password=$(PASS) sslmode=disable", "up"]
         env:
         - name: DBNAME
           valueFrom:
