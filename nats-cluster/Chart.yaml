@@ -1,0 +1,8 @@
+apiVersion: v1
+appVersion: "1.1.0"
+description: A Helm chart for running nats cluster in Kubernetes
+name: dicty-nats-cluster
+version: 0.0.1
+sources:
+  - https://github.com/nats-io/nats-operator
+  - https://store.docker.com/images/nats

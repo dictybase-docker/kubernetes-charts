@@ -1,0 +1,7 @@
+apiVersion: "nats.io/v1alpha2"
+kind: "NatsCluster"
+metadata:
+  name: {{ template "nats-cluster.name" . }}
+spec:
+  size: {{ .Values.cluster.size }}
+  version: "{{ .Values.image.nats.version }}"

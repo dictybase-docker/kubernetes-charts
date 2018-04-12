@@ -1,0 +1,9 @@
+apiVersion: v1
+appVersion: "0.2.0"
+description: A Helm chart for deploying nats operator as CRD in kubernetes
+name: nats-operator
+version: 0.0.1
+sources:
+  - https://hub.docker.com/r/connecteverything/nats-operator
+  - https://github.com/nats-io/nats-operator
+  - https://store.docker.com/images/nats

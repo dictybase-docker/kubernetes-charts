@@ -1,0 +1,11 @@
+# Default values for nats-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: connecteverything/nats-operator
+  tag: 0.2.0-v1alpha2
+  pullPolicy: Always
+
+operator:
+  name: nats-operator
