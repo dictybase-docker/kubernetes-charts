@@ -1,7 +1,7 @@
 apiVersion: v1
 description: A Helm chart for running dictycontent database migrations.
 name: dictycontent-schema
-version: 1.0.0
+version: 1.1.0
 sources:
   - https://hub.docker.com/r/dictybase/dictycontent-schema
   - https://github.com/dictybase-docker/dictycontent-schema
