@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.operator.name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.operator.name }}
+        app: {{ .Values.operator.name }}
+    spec:
+      containers:
+      - name: operator
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        args:
+          - --operator.deployment
+          - --chaos.allowed={{ .Values.operator.allowChaos }}
+        env:
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        ports:
+        - name: metrics
+          containerPort: 8528
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8528
+            scheme: HTTPS
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready/deployment
+            port: 8528
+            scheme: HTTPS
+          initialDelaySeconds: 5
+          periodSeconds: 10

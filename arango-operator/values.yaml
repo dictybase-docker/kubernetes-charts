@@ -1,0 +1,16 @@
+# Default values for kube-arangodb-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+operator:
+  name: arango-deployment-operator
+  allowChaos: false
+
+image:
+  repository: arangodb/kube-arangodb
+  tag: 0.1.0
+  pullPolicy: Always
+
+
+
