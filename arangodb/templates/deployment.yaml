@@ -1,0 +1,23 @@
+apiVersion: database.arangodb.com/v1alpha
+kind: ArangoDeployment
+metadata:
+  name: {{ template "arangodb.name" . }}
+  labels:
+    app: {{ template "arangodb.name" . }}
+    chart: {{ template "arangodb.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  mode: {{ .Values.arangodb.mode }}
+  environment: {{ .Values.arangodb.environment }}
+  image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+  imagePullPolicy: {{ .Values.image.pullPolicy }}
+  agents:
+    count: {{ .Values.arangodb.agents.count }}
+    resources:
+      requests:
+        storage: {{ .Values.arangodb.agents.storage }}
+  dbservers:
+    resources:
+      requests:
+        storage: {{ .Values.arangodb.dbservers.storage }}
