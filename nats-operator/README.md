@@ -27,7 +27,7 @@ For upgrades and rollback, look [here](https://docs.helm.sh/using_helm/#helm-upg
 The following tables lists the configurable parameters of the **nats-operator** chart and their default values.
 
 | Parameter           | Description           | Default                            |
-| --------------------|-----------------   ---| -----------------------------------|
+| --------------------|-----------------------|------------------------------------|
 | `image.repository`  | operator image        | `connect-everything/nats-operator` |
 | `image.tag`         | image tag             | `0.2.0-v1alpha2`                   |
 | `image.pullPolicy`  | Image pull policy     | `Always`                           |

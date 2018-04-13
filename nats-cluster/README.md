@@ -4,14 +4,14 @@ This [helm](https://github.com/kubernetes/helm) chart provides
 nats-cluster by using [nats-operator](https://github.com/nats-io/nats-operator/) 
 
 # Managing the chart
-The [nats-operator]() helm chart has to be installed first. 
+The [nats-operator](https://github.com/dictybase-docker/kubernetes-charts/tree/master/nats-operator) helm chart has to be installed first. 
 
 ## Install
 ```
 helm install --name dev-release nats-cluster --namespace dictybase
 ```
 
-For details, look [here](https://docs.helm.sh/using_helm/#helm-install-installing-a-package).
+For details, look [here](https://docs.helm.sh/using_helm/#helm-install-installing-a-package).   
 __Make sure__ both operator and cluster gets installed in the same `namespace`
 
 ## Uninstall
