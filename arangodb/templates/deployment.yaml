@@ -8,16 +8,21 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  mode: {{ .Values.arangodb.mode }}
-  environment: {{ .Values.arangodb.environment }}
   image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
   imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- with .Values.arangodb }}
+  mode: {{ .mode }}
+  environment: {{ .environment }}
+  storageEnginge: {{ .engine }}
+  {{- if ne "Single" .mode }}
   agents:
-    count: {{ .Values.arangodb.agents.count }}
+    count: {{ .agents.count }}
     resources:
       requests:
-        storage: {{ .Values.arangodb.agents.storage }}
+        storage: {{ .agents.storage }}
+  {{- end }}
   dbservers:
     resources:
       requests:
-        storage: {{ .Values.arangodb.dbservers.storage }}
+        storage: {{ .dbservers.storage }}
+{{- end }}

@@ -11,7 +11,7 @@ image:
 #
 arangodb: 
 # Type of deployment, for details look here https://github.com/arangodb/kube-arangodb/blob/0.1.0/docs/Manual/Deployment/Kubernetes/DeploymentResource.md
-  mode: ResilientSingle
+  mode: Single
 # Type of environment for optimizations
   environment: Development
 # storage engine either of MMFiles or RocksDB
