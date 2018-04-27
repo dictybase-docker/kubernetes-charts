@@ -3,7 +3,7 @@ entries:
   arango-collection:
   - apiVersion: v1
     appVersion: 0.0.4
-    created: 2018-04-26T18:20:19.116680018-05:00
+    created: 2018-04-26T19:52:20.928724934-05:00
     description: A Helm chart for creating arangodb collection
     digest: 0f50af08d0d9c4e26c327953684af96873f34720e35b12a57c1e29adeed8eda5
     name: arango-collection
@@ -13,7 +13,7 @@ entries:
   arango-database:
   - apiVersion: v1
     appVersion: 0.0.4
-    created: 2018-04-26T18:20:19.117027691-05:00
+    created: 2018-04-26T19:52:20.928905784-05:00
     description: A Helm chart for creating arangodb database
     digest: a324c5bf86e0e368d33f4cf9a3dce42dba74e902509f95ccd0236d7783e0877b
     name: arango-database
@@ -23,7 +23,7 @@ entries:
   arango-operator:
   - apiVersion: v1
     appVersion: 0.1.0
-    created: 2018-04-26T18:20:19.117425933-05:00
+    created: 2018-04-26T19:52:20.929134468-05:00
     description: A Helm chart for running arangodb operators in Kubernetes
     digest: 770263d48e5e0b79e5c2611ec4a6fd24db34d7ed28ce5ee998b09a9dfc644c36
     name: arango-operator
@@ -33,7 +33,7 @@ entries:
   arangodb:
   - apiVersion: v1
     appVersion: 3.3.7
-    created: 2018-04-26T18:20:19.117823552-05:00
+    created: 2018-04-26T19:52:20.929360356-05:00
     description: A Helm chart for deploying a single server arangodb database in Kubernetes
     digest: e57b15f205e324f5ff06b91a3a963b85b981ec4a2f7796e7a5b582e8fd1b6a05
     name: arangodb
@@ -43,7 +43,7 @@ entries:
   authserver:
   - apiVersion: v1
     appVersion: 4.0.1
-    created: 2018-04-26T18:20:19.118861959-05:00
+    created: 2018-04-26T19:52:20.929948174-05:00
     description: A Helm chart for dictybase authserver
     digest: 95c27a568e02c50481cb44e71e5b2d9303a42c3e4bb9f36ec2aa9f6b63433112
     maintainers:
@@ -58,7 +58,7 @@ entries:
     version: 3.0.1
   - apiVersion: v1
     appVersion: 3.0.1
-    created: 2018-04-26T18:20:19.118356961-05:00
+    created: 2018-04-26T19:52:20.929664023-05:00
     description: A Helm chart for dictybase authserver
     digest: d78a0fcd935a9a837e857186ed5d05439d3086a4bf2f867f877fc3d46e08e1e4
     maintainers:
@@ -74,7 +74,7 @@ entries:
   content-api-server:
   - apiVersion: v1
     appVersion: 0.1.0
-    created: 2018-04-26T18:20:19.119387567-05:00
+    created: 2018-04-26T19:52:20.93025876-05:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: 71afb2f5cb80e5017ed050cd0e51a8a1c2252c53dc75d2838f522aa2932af7df
     maintainers:
@@ -90,7 +90,7 @@ entries:
   dictycontent-api-server:
   - apiVersion: v1
     appVersion: 0.0.5
-    created: 2018-04-26T18:20:19.121302024-05:00
+    created: 2018-04-26T19:52:20.93118135-05:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: f8f2d62c76c99e485503bbdcbc4a7099ae80face46810ca95ca026ef999e1a09
     maintainers:
@@ -105,7 +105,7 @@ entries:
     version: 0.0.4
   - apiVersion: v1
     appVersion: 0.0.5
-    created: 2018-04-26T18:20:19.120688128-05:00
+    created: 2018-04-26T19:52:20.930875921-05:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: a12fccee245016af97a885c9f112b396480e1ac7d2c69e8ddfd55b86d03ff27b
     maintainers:
@@ -120,7 +120,7 @@ entries:
     version: 0.0.3
   - apiVersion: v1
     appVersion: 0.0.4
-    created: 2018-04-26T18:20:19.119918507-05:00
+    created: 2018-04-26T19:52:20.930576507-05:00
     description: A Helm chart for Kubernetes to run dictycontent api server.
     digest: 15d329756ba0837e41269b1fa3761c2d99a94a40551395473d344ee221c2e57a
     maintainers:
@@ -136,7 +136,7 @@ entries:
   dictycontent-postgres:
   - apiVersion: v1
     appVersion: 9.6.6
-    created: 2018-04-26T18:20:19.12285433-05:00
+    created: 2018-04-26T19:52:20.932020071-05:00
     description: A Helm chart for Kubernetes to run dictycontent postgresql database
     digest: db3e5d1a3a2c33a8505c640a7d3128cdac221ebafab1e3b197198cd6a4046c1b
     maintainers:
@@ -151,7 +151,7 @@ entries:
     version: 2.0.1
   - apiVersion: v1
     appVersion: 9.6.6
-    created: 2018-04-26T18:20:19.122119604-05:00
+    created: 2018-04-26T19:52:20.93159927-05:00
     description: A Helm chart for Kubernetes to run dictycontent postgresql database
     digest: e71be3c69830117f410bb658e7acde130c3e96ce89c1729c77402b5612070f9e
     maintainers:
@@ -166,7 +166,7 @@ entries:
     version: 1.1.0
   dictycontent-schema:
   - apiVersion: v1
-    created: 2018-04-26T18:20:19.123710308-05:00
+    created: 2018-04-26T19:52:20.932528597-05:00
     description: A Helm chart for running dictycontent database migrations.
     digest: 402bb7e6ae0ffb5595ffaaa300884a0bde1df7d2c18958f5b8bfb8a8d73bbbff
     maintainers:
@@ -180,7 +180,7 @@ entries:
     - dictycontent-schema-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v1
-    created: 2018-04-26T18:20:19.123288823-05:00
+    created: 2018-04-26T19:52:20.932287011-05:00
     description: A Helm chart for running dictycontent database migrations.
     digest: 26e4e2fa2f8a36b5a6e79ffeae894bdcc1c1b9a18e6406627129b348311af314
     maintainers:
@@ -195,7 +195,21 @@ entries:
     version: 1.0.0
   dictyuser-schema:
   - apiVersion: v1
-    created: 2018-04-26T18:20:19.124405155-05:00
+    created: 2018-04-26T19:52:20.933240606-05:00
+    description: A Helm chart for running dictyuser database migrations.
+    digest: 0292aa12fdcc4c936da43980a7a5d578551f4c9095ea6b9fb5965ce4dd43ec5b
+    maintainers:
+    - email: siddhartha-basu@northwestern.edu
+      name: Siddhartha Basu
+    name: dictyuser-schema
+    sources:
+    - https://hub.docker.com/r/dictybase/dictyuser-schema
+    - https://github.com/dictybase-docker/dictyuser-schema
+    urls:
+    - dictyuser-schema-3.1.0.tgz
+    version: 3.1.0
+  - apiVersion: v1
+    created: 2018-04-26T19:52:20.932999504-05:00
     description: A Helm chart for running dictyuser database migrations.
     digest: 45641d25232f9ba279ee41bf7211b9cfcb4e547a5ef6a7e656c392b55d6f45eb
     maintainers:
@@ -209,7 +223,7 @@ entries:
     - dictyuser-schema-3.0.0.tgz
     version: 3.0.0
   - apiVersion: v1
-    created: 2018-04-26T18:20:19.124152251-05:00
+    created: 2018-04-26T19:52:20.932762771-05:00
     description: A Helm chart for running dictyuser database migrations.
     digest: a95c336e0bbb6ea210e077c3f9f1ec449b188352fe6b7d64e0a78ed9bcf57be1
     maintainers:
@@ -225,7 +239,7 @@ entries:
   identity-api-server:
   - apiVersion: v1
     appVersion: 0.0.1
-    created: 2018-04-26T18:20:19.124626864-05:00
+    created: 2018-04-26T19:52:20.933454007-05:00
     description: A Helm chart for identity api service
     digest: 1a0456ef678f81d84758d9f5f929d404a64a5cc918941fc28247d2492d8361f8
     name: identity-api-server
@@ -234,7 +248,7 @@ entries:
     version: 0.0.2
   load-users:
   - apiVersion: v1
-    created: 2018-04-26T18:20:19.124788561-05:00
+    created: 2018-04-26T19:52:20.933617853-05:00
     description: A Helm chart for loading dictybase users(colleague)
     digest: e0b7e123bbe21b2c18a48a9cfe9aea9deb756b5bdd0f7ddb0f6defff27966291
     name: load-users
@@ -244,7 +258,7 @@ entries:
   nats:
   - apiVersion: v1
     appVersion: 1.1.0
-    created: 2018-04-26T18:20:19.125051549-05:00
+    created: 2018-04-26T19:52:20.933822229-05:00
     description: A Helm chart for running nats cluster in Kubernetes
     digest: 81f206454873613aa7643597bd2133aaf6a68e3efaccd61d408e25ff4dd9ed37
     name: nats
@@ -257,7 +271,7 @@ entries:
   nats-operator:
   - apiVersion: v1
     appVersion: 0.2.0
-    created: 2018-04-26T18:20:19.125291425-05:00
+    created: 2018-04-26T19:52:20.934052206-05:00
     description: A Helm chart for deploying nats operator as CRD in kubernetes
     digest: b43d4d9f61f7ffe238fac79d676db8cff40b1c6773050a0ea1909ffd190c5645
     name: nats-operator
@@ -271,7 +285,7 @@ entries:
   user-api-server:
   - apiVersion: v1
     appVersion: 0.0.1
-    created: 2018-04-26T18:20:19.125588999-05:00
+    created: 2018-04-26T19:52:20.934346112-05:00
     description: A Helm chart for Kubernetes to run user api server.
     digest: d29b892d49c31878e4dad890dfa09c56b0c2a679e92fb5691b6a04785ea15fe9
     maintainers:
@@ -284,4 +298,4 @@ entries:
     urls:
     - user-api-server-0.0.2.tgz
     version: 0.0.2
-generated: 2018-04-26T18:20:19.115810219-05:00
+generated: 2018-04-26T19:52:20.928373754-05:00
