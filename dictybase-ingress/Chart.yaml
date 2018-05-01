@@ -1,4 +1,4 @@
 apiVersion: v1
 description: A Helm chart for dictybase ingress resource to access API services.
-name: api-ingress
-version: 0.0.1
+name: dictybase-ingress
+version: 0.0.2
