@@ -7,7 +7,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - name: betatest.dictybase.local
+    - name: betaapi.dictybase.local
       paths:
         - path: /contents
           serviceName: content-api
