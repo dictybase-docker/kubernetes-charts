@@ -30,7 +30,7 @@ The following tables lists the configurable parameters of the **nats-cluster** c
 | Parameter             | Description                | Default          |
 | ----------------------|----------------------------|------------------|
 | `image.nats.version`  | nats server image version  | `1.1.0`          |
-| `cluster.size`        | no of nats server          | `0.2.0-v1alpha2` |
+| `cluster.size`        | no of nats server          | `1`              |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. 
