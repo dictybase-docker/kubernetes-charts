@@ -29,6 +29,11 @@ ingress:
         - path: /tokens
           serviceName: authserver
           servicePort: 9996
+    - name: betatest.dictybase.local
+      paths:
+        - path: /stockcenter
+          serviceName: dicty-stock-center
+          servicePort: 9595
 
   # tls: []
   #  - secretName: chart-example-tls
