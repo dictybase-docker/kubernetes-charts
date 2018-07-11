@@ -32,13 +32,13 @@ ingress:
     - name: betatest.dictybase.local
       paths:
         - path: /stockcenter
-          serviceName: dicty-stock-center
+          serviceName: stock-center
           servicePort: 9595
 
-  # tls: []
-  #  - secretName: chart-example-tls
+  # tls: 
+  #  - secretName: example-local-tls
   #    hosts:
-  #      - chart-example.local
+  #     - example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
