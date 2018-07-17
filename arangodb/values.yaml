@@ -24,6 +24,8 @@ arangodb:
   dbservers:
     # amount of storage for each agent
     storage: 3Gi
+    # Any particular storage class
+    # storageClass:
 
 # service:
   # type: NodePort

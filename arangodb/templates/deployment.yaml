@@ -25,4 +25,7 @@ spec:
     resources:
       requests:
         storage: {{ .dbservers.storage }}
+  {{- if .dbservers.storageClass }}
+    storageClassName: {{ .dbservers.storageClass }}
+  {{- end }}
 {{- end }}
