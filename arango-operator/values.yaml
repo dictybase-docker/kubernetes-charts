@@ -9,8 +9,8 @@ operator:
 
 image:
   repository: arangodb/kube-arangodb
-  tag: 0.1.0
-  pullPolicy: Always
+  tag: 0.2.2
+  pullPolicy: IfNotPresent
 
 
 
