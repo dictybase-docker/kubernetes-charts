@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: arangodb/arangodb
-  tag: 3.3.7
+  tag: 3.3.12
   pullPolicy: IfNotPresent
 
 # 
@@ -22,16 +22,15 @@ arangodb:
     # amount of storage for each agent
     storage: 500Mi
   dbservers:
+    # no of dbservers to start with
+    count: 2
     # amount of storage for each agent
     storage: 3Gi
     # Any particular storage class
     # storageClass:
-
-# service:
-  # type: NodePort
-  # port: 80
-
-
+  # service configuration
+  service:
+    type: NodePort
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

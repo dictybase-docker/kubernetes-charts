@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "3.3.7"
 description: A Helm chart for deploying a single server arangodb database in Kubernetes
 name: arangodb
-version: 0.2.0
+version: 0.3.0

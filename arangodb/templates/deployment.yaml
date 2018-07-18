@@ -11,6 +11,8 @@ spec:
   image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
   imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- with .Values.arangodb }}
+  externalAccess:
+    type: {{ .service.type }}
   mode: {{ .mode }}
   environment: {{ .environment }}
   storageEnginge: {{ .engine }}
@@ -20,8 +22,12 @@ spec:
     resources:
       requests:
         storage: {{ .agents.storage }}
+  {{- if .dbservers.storageClass }}
+    storageClassName: {{ .dbservers.storageClass }}
+  {{- end }}
   {{- end }}
   dbservers:
+    count: {{ .dbservers.count }}
     resources:
       requests:
         storage: {{ .dbservers.storage }}
