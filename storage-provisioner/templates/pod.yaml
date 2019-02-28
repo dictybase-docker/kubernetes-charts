@@ -15,10 +15,10 @@ spec:
     imagePullPolicy: {{ .Values.image.pullPolicy }}
     command: ["/storage-provisioner"]
     volumeMounts:
-    - mountPath: {{ .Values.storage.path }}
+    - mountPath: {{ required "Required storage path .Values.storage.path is missing !!!!!!" .Values.storage.path }}
       name: {{ .Values.storage.name }}
   volumes:
   - name: {{ .Values.storage.name }}
     hostPath:
-      path: {{ .Value.storage.path }}
+      path: {{ required "Required storage path .Values.storage.path is missing !!!!!!" .Values.storage.path }}
       type: Directory

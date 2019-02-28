@@ -4,10 +4,14 @@
 # name: value
 image:
   repository: gcr.io/k8s-minikube/storage-provisioner
-  tag: v.1.8.1
+  tag: v1.8.1
   pullPolicy: IfNotPresent
 
 storage:
+# name that will be used in chart, do not change
   name: host-storage
-  path: /mnt/docker/kubestorage
+# absolute host path, required for storage(mandatory)
+#  path: /mnt/docker/kubestorage
+# default storage class name
+  className: local-storage
 
