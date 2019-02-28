@@ -1,0 +1,13 @@
+# Default values for local-storage.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+image:
+  repository: gcr.io/k8s-minikube/storage-provisioner
+  tag: v.1.8.1
+  pullPolicy: IfNotPresent
+
+storage:
+  name: host-storage
+  path: /mnt/docker/kubestorage
+

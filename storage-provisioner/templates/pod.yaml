@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ Chart.Name }}
+  namespace: kube-system
+  labels:
+    integration-test: storage-provisioner
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  serviceAccountName: {{ Chart.Name }}
+  hostNetwork: true
+  containers:
+  - name: {{ Chart.Name }}
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: {{ .Values.image.pullPolicy }}
+    command: ["/storage-provisioner"]
+    volumeMounts:
+    - mountPath: {{ .Values.storage.path }}
+      name: {{ .Values.storage.name }}
+  volumes:
+  - name: {{ .Values.storage.name }}
+    hostPath:
+      path: {{ .Value.storage.path }}
+      type: Directory
