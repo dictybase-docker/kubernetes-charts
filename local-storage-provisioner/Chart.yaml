@@ -1,5 +1,5 @@
 description: A Helm chart for creating local hostpath based dynamic storage controller
-name: storage-provisioner
+name: local-storage-provisioner
 version: 1.0.0
 maintainers:
   - name: Siddhartha Basu

@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ Chart.Name }}
+  name: {{ .Chart.Name }}
   labels:
     addonmanager.kubernetes.io/mode: EnsureExists
 roleRef:
@@ -10,5 +10,5 @@ roleRef:
   name: system:persistent-volume-provisioner
 subjects:
   - kind: ServiceAccount
-    name: {{ Chart.Name }}
+    name: {{ .Chart.Name }}
     namespace: kube-system
