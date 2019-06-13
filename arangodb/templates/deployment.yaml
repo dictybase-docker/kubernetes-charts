@@ -15,7 +15,7 @@ spec:
     type: {{ .service.type }}
   mode: {{ .mode }}
   environment: {{ .environment }}
-  storageEnginge: {{ .engine }}
+  storageEngine: {{ .engine }}
   {{- if ne "Single" .mode }}
   agents:
     count: {{ .agents.count }}
@@ -25,7 +25,6 @@ spec:
   {{- if .dbservers.storageClass }}
     storageClassName: {{ .dbservers.storageClass }}
   {{- end }}
-  {{- end }}
   dbservers:
     count: {{ .dbservers.count }}
     resources:
@@ -33,5 +32,16 @@ spec:
         storage: {{ .dbservers.storage }}
   {{- if .dbservers.storageClass }}
     storageClassName: {{ .dbservers.storageClass }}
+  {{- end }}
+  {{- end }}
+  {{- if eq "Single" .mode }}
+  single:
+    count: {{ .single.count }}
+    resources:
+      requests:
+        storage: {{ .single.storage }}
+  {{- if .single.storageClass }}
+    storageClassName: {{ .single.storageClass }}
+  {{- end }}
   {{- end }}
 {{- end }}

@@ -28,6 +28,10 @@ arangodb:
     storage: 3Gi
     # Any particular storage class
     # storageClass:
+  single:
+    count: 1
+    storage: 8Gi
+    # storageClass: fast
   # service configuration
   service:
     type: NodePort
