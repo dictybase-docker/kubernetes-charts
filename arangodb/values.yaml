@@ -10,7 +10,7 @@ image:
 # Arangodb default configurations are exposed here.
 #
 arangodb: 
-# Type of deployment, for details look here https://github.com/arangodb/kube-arangodb/blob/0.1.0/docs/Manual/Deployment/Kubernetes/DeploymentResource.md
+# Type of deployment, for details look here https://github.com/arangodb/kube-arangodb/blob/0.3.11/docs/Manual/Deployment/Kubernetes/DeploymentResource.md
   mode: Single
 # Type of environment for optimizations
   environment: Development
@@ -26,12 +26,11 @@ arangodb:
     count: 2
     # amount of storage for each agent
     storage: 3Gi
-    # Any particular storage class
-    # storageClass:
-  single:
-    count: 1
-    storage: 8Gi
+    # any particular storage class
     # storageClass: fast
+  single:
+    # amount of storage
+    storage: 8Gi
   # service configuration
   service:
     type: NodePort

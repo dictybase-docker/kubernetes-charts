@@ -16,32 +16,42 @@ spec:
   mode: {{ .mode }}
   environment: {{ .environment }}
   storageEngine: {{ .engine }}
-  {{- if ne "Single" .mode }}
-  agents:
-    count: {{ .agents.count }}
-    resources:
-      requests:
-        storage: {{ .agents.storage }}
-  {{- if .dbservers.storageClass }}
-    storageClassName: {{ .dbservers.storageClass }}
-  {{- end }}
-  dbservers:
-    count: {{ .dbservers.count }}
-    resources:
-      requests:
-        storage: {{ .dbservers.storage }}
-  {{- if .dbservers.storageClass }}
-    storageClassName: {{ .dbservers.storageClass }}
-  {{- end }}
-  {{- end }}
   {{- if eq "Single" .mode }}
   single:
-    count: {{ .single.count }}
-    resources:
-      requests:
-        storage: {{ .single.storage }}
-  {{- if .single.storageClass }}
-    storageClassName: {{ .single.storageClass }}
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .single.storage }}
+      {{- if .dbservers.storageClass }}
+        storageClassName: {{ .dbservers.storageClass }}
+      {{- end }}
   {{- end }}
-  {{- end }}
+  {{- else }}
+  agents:
+    count: {{ .agents.count }}
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .agents.storage }}
+      {{- if .dbservers.storageClass }}
+        storageClassName: {{ .dbservers.storageClass }}
+      {{- end }}
+  dbservers:
+    count: {{ .dbservers.count }}
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .dbservers.storage }}
+      {{- if .dbservers.storageClass }}
+        storageClassName: {{ .dbservers.storageClass }}
+      {{- end }}
 {{- end }}
