@@ -24,17 +24,18 @@ For upgrades and rollback, look [here](https://docs.helm.sh/using_helm/#helm-upg
 
 The following tables lists the configurable parameters of the **arangodb** chart and their default values.
 
-| Parameter                         | Description                   | Default                    |
-| ----------------------------------|-------------------------------|----------------------------|
-| `image.repository`                | image repository              | `arangodb/arangodb`        |
-| `image.tag`                       | image tag                     | `3.3.7`                    |
-| `image.pullPolicy`                | Image pull policy             | `IfNotPresent`             |
-| `arangodb.mode`                   | Type of deployment            | `Single`                   |
-| `arangodb.environment`            | Environment for deploy        | `Development`              |
-| `arangodb.engine`                 | Storage engine                | `RocksDB`                  |
-| `arangodb.agents.count`           | No of agents                  | `3`                        |
-| `arangodb.agents.storage`         | Storage for each agent        | `500Mi`                    |
-| `arangodb.dbservers.storage`      | Storage for each dbservers    | `3Gi`                      |
+| Parameter                          | Description                   | Default                    |
+| -----------------------------------|-------------------------------|----------------------------|
+| `image.repository`                 | image repository              | `arangodb/arangodb`        |
+| `image.tag`                        | image tag                     | `3.3.23`                   |
+| `image.pullPolicy`                 | Image pull policy             | `IfNotPresent`             |
+| `arangodb.mode`                    | Type of deployment            | `Single`                   |
+| `arangodb.environment`             | Environment for deploy        | `Development`              |
+| `arangodb.engine`                  | Storage engine                | `RocksDB`                  |
+| `arangodb.agents.count`            | No of agents                  | `3`                        |
+| `arangodb.agents.storage`          | Storage for each agent        | `500Mi`                    |
+| `arangodb.dbservers.storage`       | Storage for each dbservers    | `3Gi`                      |
+| `arangodb.dbservers.storageClass`  | Custom storage class          | ``                         |
 
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
