@@ -21,7 +21,7 @@ spec:
     volumeClaimTemplate:
       spec:
         accessModes:
-          - ReadWriteOnce
+          - {{ .dbservers.accessMode }}
         resources:
           requests:
             storage: {{ .single.storage }}
@@ -29,13 +29,13 @@ spec:
         storageClassName: {{ .dbservers.storageClass }}
       {{- end }}
   {{- end }}
-  {{- else }}
+  {{- if ne "Single" .mode }}
   agents:
     count: {{ .agents.count }}
     volumeClaimTemplate:
       spec:
         accessModes:
-          - ReadWriteOnce
+          - {{ .dbservers.accessMode }}
         resources:
           requests:
             storage: {{ .agents.storage }}
@@ -47,11 +47,12 @@ spec:
     volumeClaimTemplate:
       spec:
         accessModes:
-          - ReadWriteOnce
+          - {{ .dbservers.accessMode }}
         resources:
           requests:
             storage: {{ .dbservers.storage }}
       {{- if .dbservers.storageClass }}
         storageClassName: {{ .dbservers.storageClass }}
       {{- end }}
+  {{- end }}
 {{- end }}
