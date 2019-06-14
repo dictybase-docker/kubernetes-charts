@@ -36,6 +36,8 @@ The following tables lists the configurable parameters of the **arangodb** chart
 | `arangodb.agents.storage`          | Storage for each agent        | `500Mi`                    |
 | `arangodb.dbservers.storage`       | Storage for each dbservers    | `3Gi`                      |
 | `arangodb.dbservers.storageClass`  | Custom storage class          | ``                         |
+| `arangodb.dbservers.accessMode`    | Level of access for volume    | `ReadWriteOnce`            |
+| `arangodb.single.storage`          | Storage for single deployment | `8Gi`                      |
 
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
