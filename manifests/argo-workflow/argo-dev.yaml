@@ -1,0 +1,35 @@
+init:
+  serviceAccount: argo-workflow
+controller:
+  workflowNamespaces:
+    - argo
+images:
+  tag: v2.3.0
+ui:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - siddargo.dictybase.dev
+    tls:
+      - secretName: argo-devsidd-tls
+        hosts:
+          - siddargo.dictybase.dev
+# Influences the creation of the ConfigMap for the workflow-controller itself.
+useDefaultArtifactRepo: true
+artifactRepository:
+  # archiveLogs will archive the main container logs as an artifact
+  archiveLogs: false
+  s3:
+    # Note the `key` attribute is not the actual secret, it's the PATH to
+    # the contents in the associated secret, as defined by the `name` attribute.
+    accessKeySecret:
+      name: minio-secret
+      key: accesskey
+    secretKeySecret:
+      name: minio-secret
+      key: secretkey
+    insecure: false
+    bucket: argo
+    endpoint: siddstorage.dictybase.dev
