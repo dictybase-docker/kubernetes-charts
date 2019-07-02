@@ -54,4 +54,4 @@ spec:
       image: "{{workflow.parameters.unit_test_container_image}}"
       workingDir: "{{workflow.parameters.src_path}}"
       args: ["cp /opt/clientConfig.js {{workflow.parameters.src_path}}/src/utils/ && npm install-test"]
-command: ["/bin/sh", "-c"]
+      command: ["/bin/sh", "-c"]
