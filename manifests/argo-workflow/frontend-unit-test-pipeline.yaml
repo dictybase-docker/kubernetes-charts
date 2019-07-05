@@ -5,6 +5,7 @@ metadata:
 spec:
   entrypoint: frontend-ci
   onExit: notify
+  serviceAccountName: argo-workflow
   arguments:
     parameters:
       - name: repo
