@@ -1,0 +1,99 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: {{ .Values.sensor.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    sensors.argoproj.io/sensor-controller-instanceid: argo-events
+    argo-events-sensor-version: v0.10
+spec:
+  template:
+    spec:
+      containers:
+        - name: "sensor"
+          image: "argoproj/sensor"
+          imagePullPolicy: Always
+      serviceAccountName: {{ .Values.serviceAccount }}
+  dependencies:
+    {{- range .Values.frontend }}
+    - name: "{{ $.Values.gateway.name }}:{{ . }}"
+    {{- end}}
+    {{- range .Values.backend }}
+    - name: "{{ $.Values.gateway.name }}:{{ . }}"
+    {{- end}}
+  dependencyGroups:
+    {{- range .Values.frontend }}
+    - name: {{ . | replace "-" "" }}
+      dependencies:
+        - "{{ $.Values.gateway.name }}:{{ . }}"
+    {{- end}}
+    {{- range .Values.backend }}
+    - name: {{ . | replace "-" "" }}
+      dependencies:
+        - "{{ $.Values.gateway.name }}:{{ . }}"
+    {{- end}}
+    # loop through all values and separate them with ||
+    # and also remove the last || with lastIndex variable
+    {{- $lastIndex := sub (len $.Values.backend) 1}}
+  circuit: "{{- range .Values.frontend }}{{ "" }}{{ . | replace "-" "" }} {{"|| "}} {{- end}} {{- range $index, $name := .Values.backend }} {{ $name | replace "-" "" }} {{- if ne $index $lastIndex -}}{{" || "}}{{ end }} {{- end}}"
+  eventProtocol:
+    type: {{ .Values.gateway.eventProtocol.type }}
+    http:
+      port: {{ .Values.gateway.eventProtocol.port | quote }}
+  triggers:
+    {{- range .Values.frontend }}
+    - template:
+        when:
+          any:
+            - {{ . | replace "-" "" }}
+        name: "github-{{ . | replace "-" "" }}-workflow-trigger"
+        group: argoproj.io
+        version: v1alpha1
+        kind: Workflow
+        source:
+          url:
+            path: {{ $.Values.sensor.frontendWorkflow }}
+            verifycert: {{ $.Values.sensor.verifyCert }}
+      resourceParameters:
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "repository.clone_url"
+          # dest is repo
+          dest: spec.arguments.parameters.0.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "after"
+          # dest is revision (commit)
+          dest: spec.arguments.parameters.1.value
+    {{- end }}
+    {{- range .Values.backend }}
+    - template:
+        when:
+          any:
+            - {{ . | replace "-" "" }}
+        name: "github-{{ . | replace "-" "" }}-workflow-trigger"
+        group: argoproj.io
+        version: v1alpha1
+        kind: Workflow
+        source:
+          url:
+            path: {{ $.Values.sensor.backendWorkflow }}
+            verifycert: {{ $.Values.sensor.verifyCert }}
+      resourceParameters:
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "repository.clone_url"
+          # dest is repo
+          dest: spec.arguments.parameters.0.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "after"
+          # dest is revision (commit)
+          dest: spec.arguments.parameters.1.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "repository.name"
+            value: "{{ . }}"
+          # dest is repo name
+          dest: spec.arguments.parameters.2.value
+    {{- end }}

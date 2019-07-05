@@ -1,0 +1,140 @@
+# Default values for argo-pipeline.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# namespace in which all will be deployed
+namespace: argo
+
+# serviceAccount used for argo-events
+# this is automatically created when deploying argo-events
+serviceAccount: argo-events-sa
+
+# all config related to gateway deployment
+gateway:
+  name: github-gateway
+  ports:
+    servicePort: 12000
+    targetPort: 12000
+    type: NodePort
+  processorPort: 9330
+  eventProtocol:
+    type: HTTP
+    port: 9300
+
+# all config related to event source deployment
+eventSource:
+  name: github-event-source
+  # repository owner
+  owner: dictyBase
+  # url base used for webhooks
+  hookURL: https://ericargo.dictybase.dev
+  apiToken:
+    # k8s secret with token
+    name: github-access
+    # key containing github access token
+    key: apiToken
+  webHookSecret:
+    # k8s secret with webhook secret
+    name: github-access
+    # key containing github webhook secret
+    key: webHookSecret
+  # list of events to trigger webhook for
+  events:
+    - push
+
+# all config related to sensor deployment
+sensor:
+  name: github-sensor
+  # location of frontend workflow yaml
+  frontendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/frontend-unit-test-pipeline.yaml
+  # location of backend workflow yaml
+  backendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-unit-test-pipeline.yaml
+  verifyCert: false
+
+# list of github webhooks
+# all items need repo name and webhook id
+# hooks:
+# - repo: dicty-stock-center
+#   id: "118239462" # needs to be in quotes
+# - repo: dicty-frontpage
+#   id: "121773118"
+# - repo: modware-stock
+#   id: "121082141"
+# - repo: modware-order
+#   id: "121785862"
+
+# list of frontend repositories with webhooks
+frontend:
+- dicty-stock-center
+- dicty-frontpage
+- genomepage
+- dictyaccess
+- publication
+
+# list of backend repositories with webhooks
+backend:
+- modware-stock
+- modware-order
+- modware-annotation
+- modware-identity
+- modware-user
+- modware-content
+- graphql-server
+
+# here you can override values for argo-events chart
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
+argo-events:
+  namespace: argo
+
+# here you can override values for argo chart
+# https://github.com/argoproj/argo-helm/tree/master/charts/argo
+argo:
+  init:
+    serviceAccount: argo-workflow
+  controller:
+    workflowNamespaces:
+      - argo
+  images:
+    tag: v2.3.0
+  ui:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - ericargo.dictybase.dev
+      tls:
+        - secretName: argo-eric-dev-tls
+          hosts:
+            - ericargo.dictybase.dev
+  # Influences the creation of the ConfigMap for the workflow-controller itself.
+  # useDefaultArtifactRepo: true
+  # artifactRepository:
+  # archiveLogs will archive the main container logs as an artifact
+  # archiveLogs: false
+  # s3:
+  # Note the `key` attribute is not the actual secret, it's the PATH to
+  # the contents in the associated secret, as defined by the `name` attribute.
+  # accessKeySecret:
+  #   name: minio-secret
+  #   key: accesskey
+  # secretKeySecret:
+  #   name: minio-secret
+  #   key: secretkey
+  # insecure: false
+  # bucket: argo
+  # endpoint: ericstorage.dictybase.dev
+
+# resources: {}
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+#

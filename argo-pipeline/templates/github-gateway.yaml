@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Gateway
+metadata:
+  name: {{ .Values.gateway.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    gateways.argoproj.io/gateway-controller-instanceid: argo-events
+    argo-events-gateway-version: v0.10
+spec:
+  type: "github"
+  eventSource: "{{ .Values.eventSource.name }}"
+  processorPort: {{ .Values.gateway.processorPort | quote }}
+  eventProtocol:
+    type: {{ .Values.gateway.eventProtocol.type }}
+    http:
+      port: {{ .Values.gateway.eventProtocol.port | quote }}
+  template:
+    metadata:
+      name: "{{ .Values.gateway.name }}"
+      labels:
+        gateway-name: "{{ .Values.gateway.name }}"
+    spec:
+      containers:
+        - name: "gateway-client"
+          image: "argoproj/gateway-client"
+          imagePullPolicy: "Always"
+          command: ["/bin/gateway-client"]
+        - name: "github-events"
+          image: "argoproj/github-gateway"
+          imagePullPolicy: "Always"
+          command: ["/bin/github-gateway"]
+      serviceAccountName: "{{ .Values.serviceAccount }}"
+  service:
+    metadata:
+      name: {{ .Values.gateway.name }}-svc
+    spec:
+      selector:
+        gateway-name: "{{ .Values.gateway.name }}"
+      ports:
+        - port: {{ .Values.gateway.ports.servicePort }}
+          targetPort: {{ .Values.gateway.ports.targetPort }}
+      type: {{ .Values.gateway.ports.type }}
+  watchers:
+    sensors:
+      - name: "{{ .Values.sensor.name }}"
