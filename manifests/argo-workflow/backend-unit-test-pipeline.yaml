@@ -11,18 +11,18 @@ spec:
       - name: github_url
       - name: revision
       - name: repo
-      - name: src_path
-        value: /src
-      - name: arango_pass
-        value: vandelay
-      - name: db_version
-        value: 3.3.19
       - name: image_tag
         value: dev
       - name: slack_channel
         value: ericdev-ci
       - name: endpoint
         value: https://ericargo.dictybase.dev/workflows/argo
+      - name: src_path
+        value: /src
+      - name: arango_pass
+        value: vandelay
+      - name: db_version
+        value: 3.3.19
       - name: unit_test_container_image
         value: cybersiddhu/go-builder
   templates:
