@@ -13,18 +13,18 @@ You need to create three [Kubernetes secrets](https://kubernetes.io/docs/concept
 - Slack
 
 > `$_> kubectl create secret generic slack-secret -n argo \`
-> `--from-literal=oauth-token=YOUR_TOKEN_HERE...`
+>         `--from-literal=oauth-token=YOUR_TOKEN_HERE...`
 
 - GitHub
 
 >`$_> kubectl create secret generic github-access -n argo \`
-> `--from-literal=apiToken=YOUR_TOKEN_HERE... \`
-> `--from-literal=webHookSecret=YOUR_SECRET_HERE...`
+>         `--from-literal=apiToken=YOUR_TOKEN_HERE... \`
+>         `--from-literal=webHookSecret=YOUR_SECRET_HERE...`
 
 - Docker
 
 > `$_> kubectl create secret generic docker-secret -n argo \`
-> `--from-file=${HOME}/.docker/config.json`
+>         `--from-file=${HOME}/.docker/config.json`
 
 ## Install
 ```
