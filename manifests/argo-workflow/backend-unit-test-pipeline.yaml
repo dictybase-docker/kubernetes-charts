@@ -8,10 +8,9 @@ spec:
   serviceAccountName: argo-workflow
   arguments:
     parameters:
-      - name: repo
+      - name: github_url
       - name: revision
-        value: develop
-      - name: image_repo
+      - name: repo
       - name: src_path
         value: /src
       - name: arango_pass
@@ -24,8 +23,6 @@ spec:
         value: ericdev-ci
       - name: endpoint
         value: https://ericargo.dictybase.dev/workflows/argo
-      - name: cache_repo
-        value: modware
       - name: unit_test_container_image
         value: cybersiddhu/go-builder
   templates:
@@ -88,7 +85,7 @@ spec:
       - name: source
         path: "{{workflow.parameters.src_path}}"
         git:
-          repo: "{{workflow.parameters.repo}}"
+          repo: "{{workflow.parameters.github_url}}"
           revision: "{{workflow.parameters.revision}}"
     container:
       image: "{{workflow.parameters.unit_test_container_image}}"
@@ -106,15 +103,15 @@ spec:
       - name: source
         path: "{{workflow.parameters.src_path}}"
         git:
-          repo: "{{workflow.parameters.repo}}"
+          repo: "{{workflow.parameters.github_url}}"
           revision: "{{workflow.parameters.revision}}"
     container:
       image: gcr.io/kaniko-project/executor:latest
       args: ["--dockerfile=build/package/Dockerfile",
             "--context={{workflow.parameters.src_path}}",
-            "--destination=dictybase/{{workflow.parameters.image_repo}}:{{workflow.parameters.image_tag}}",
+            "--destination=dictybase/{{workflow.parameters.repo}}:{{workflow.parameters.image_tag}}",
             "--cache=true",
-            "--cache-repo=dictybase/{{workflow.parameters.cache_repo}}-cache"
+            "--cache-repo=dictybase/{{workflow.parameters.repo}}-cache"
             ]
       volumeMounts:
         - name: docker-secret
