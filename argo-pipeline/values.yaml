@@ -64,22 +64,26 @@ sensor:
 #   id: "121785862"
 
 # list of frontend repositories with webhooks
-# frontend:
-# - dicty-stock-center
-# - dicty-frontpage
+frontend:
+- dicty-stock-center
+- dicty-frontpage
 # - genomepage
 # - dictyaccess
 # - publication
 
 # list of backend repositories with webhooks
-# backend:
-# - modware-stock
-# - modware-order
+backend:
+- modware-stock
+- modware-order
 # - modware-annotation
 # - modware-identity
 # - modware-user
 # - modware-content
+
+# list of backend repositories without unit tests
+# backend-no-tests:
 # - graphql-server
+# - modware-import
 
 # here you can override values for argo-events chart
 # https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
