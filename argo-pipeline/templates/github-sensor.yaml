@@ -98,4 +98,39 @@ spec:
             value: "{{ . }}"
           # dest is repo name
           dest: spec.arguments.parameters.2.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "ref"
+          # dest is image_tag
+          dest: spec.arguments.parameters.3.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "slack"
+            value: "{{ $.Values.workflow.slackChannel }}"
+          dest: spec.arguments.parameters.4.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "endpoint"
+            value: "{{ $.Values.workflow.endpoint }}"
+          dest: spec.arguments.parameters.5.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "srcPath"
+            value: "{{ $.Values.workflow.srcPath }}"
+          dest: spec.arguments.parameters.6.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "arangoPass"
+            value: "{{ $.Values.workflow.arangoPass }}"
+          dest: spec.arguments.parameters.7.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "dbVersion"
+            value: {{ $.Values.workflow.dbVersion }}
+          dest: spec.arguments.parameters.8.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "unitTest"
+            value: "{{ $.Values.workflow.unitTestContainerImage }}"
+          dest: spec.arguments.parameters.9.value
     {{- end }}

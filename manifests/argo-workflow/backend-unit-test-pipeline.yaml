@@ -13,17 +13,11 @@ spec:
       - name: repo
       - name: image_tag
       - name: slack_channel
-        value: ericdev-ci
       - name: endpoint
-        value: https://ericargo.dictybase.dev/workflows/argo
       - name: src_path
-        value: /src
       - name: arango_pass
-        value: vandelay
       - name: db_version
-        value: 3.3.19
       - name: unit_test_container_image
-        value: dictybase/backend-tester
   templates:
   - name: notify
     container:

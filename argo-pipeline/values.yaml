@@ -85,6 +85,17 @@ backend:
 # - graphql-server
 # - modware-import
 
+# custom values for argo workflow
+workflow:
+  # slack channel to send notification
+  slackChannel: ericdev-ci
+  # endpoint for argo workflow
+  endpoint: https://ericargo.dictybase.dev/workflows/argo
+  srcPath: /src
+  arangoPass: vandelay
+  dbVersion: 3.3.19
+  unitTestContainerImage: dictybase/backend-tester
+
 # here you can override values for argo-events chart
 # https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
 argo-events:
