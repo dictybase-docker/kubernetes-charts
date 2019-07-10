@@ -15,9 +15,6 @@ spec:
       - name: slack_channel
       - name: endpoint
       - name: src_path
-      - name: arango_pass
-      - name: db_version
-      - name: unit_test_container_image
   templates:
   - name: notify
     container:
@@ -40,18 +37,6 @@ spec:
     steps: # <--- ci pipeline steps
       - - name: ref-parser
           template: ref-parser
-      - - name: database # arangodb server
-          template: arangodb
-      - - name: unit-test # unit test, stops here on error or failure
-          template: unit-test
-          continueOn:
-          # stops if error/failed
-            error: false
-            failed: false
-          arguments:
-            parameters:
-              - name: ahost
-                value: "{{steps.database.ip}}"
       - - name: build-push # image build and push
           template: build-push
           arguments:
@@ -59,7 +44,6 @@ spec:
               - name: tag
                 value: "{{steps.ref-parser.outputs.parameters.tag}}"
 
-  # template definitons that are referenced in steps
   # parse ref string from webhook response
   - name: ref-parser
     container:
@@ -71,41 +55,6 @@ spec:
       - name: tag
         valueFrom:
           path: "ref.txt"
-
-  # starts up arangodb server for unit testing
-  - name: arangodb
-    daemon: true
-    container:
-      image: "arangodb:{{workflow.parameters.db_version}}"
-      env:
-        - name: ARANGO_ROOT_PASSWORD
-          value: "{{workflow.parameters.arango_pass}}"
-      # readinessProbe:
-      #   httpGet:
-      #     path: /_admin/status
-      #     port: 8529
-      #   initialDelaySeconds: 4
-      #   periodSeconds: 10
-
-  # runs unit tests from the checked out github repository
-  - name: unit-test
-    inputs:
-      parameters:
-        - name: ahost
-      artifacts:
-      - name: source
-        path: "{{workflow.parameters.src_path}}"
-        git:
-          repo: "{{workflow.parameters.github_url}}"
-          revision: "{{workflow.parameters.commit}}"
-    container:
-      image: "{{workflow.parameters.unit_test_container_image}}"
-      workingDir: "{{workflow.parameters.src_path}}"
-      env:
-        - name: ARANGO_PASS
-          value: "{{workflow.parameters.arango_pass}}"
-        - name: ARANGO_HOST
-          value: "{{inputs.parameters.ahost}}"
 
   ## build in cluster docker image and pushes to docker hub
   - name: build-push

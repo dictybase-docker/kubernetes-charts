@@ -6,6 +6,8 @@ metadata:
   labels:
     gateways.argoproj.io/gateway-controller-instanceid: argo-events
     argo-events-gateway-version: v0.10
+  annotations:
+    "helm.sh/hook": post-install
 spec:
   type: "github"
   eventSource: "{{ .Values.eventSource.name }}"
@@ -42,4 +44,6 @@ spec:
       type: {{ .Values.gateway.ports.type }}
   watchers:
     sensors:
-      - name: "{{ .Values.sensor.name }}"
+      - name: "{{ .Values.sensor.backendName }}"
+      - name: "{{ .Values.sensor.backendNoTestName }}"
+      - name: "{{ .Values.sensor.frontendName }}"

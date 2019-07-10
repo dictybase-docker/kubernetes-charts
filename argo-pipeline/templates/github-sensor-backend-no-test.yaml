@@ -1,0 +1,88 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: {{ .Values.sensor.backendNoTestName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    sensors.argoproj.io/sensor-controller-instanceid: argo-events
+    argo-events-sensor-version: v0.10
+  annotations:
+    "helm.sh/hook": post-install
+spec:
+  template:
+    spec:
+      containers:
+        - name: "sensor"
+          image: "argoproj/sensor"
+          imagePullPolicy: Always
+      serviceAccountName: {{ .Values.serviceAccount }}
+  dependencies:
+    {{- range .Values.backendNoTests }}
+    - name: "{{ $.Values.gateway.name }}:{{ . }}"
+    {{- end}}
+  dependencyGroups:
+    {{- range .Values.backendNoTests }}
+    - name: {{ . | replace "-" "" }}
+      dependencies:
+        - "{{ $.Values.gateway.name }}:{{ . }}"
+    {{- end}}
+    # loop through all values and separate them with ||
+    # and also remove the last || with lastIndex variable
+    {{- $lastIndex := sub (len $.Values.backendNoTests) 1}}
+  circuit: "{{- range $index, $name := .Values.backendNoTests }} {{ $name | replace "-" "" }} {{- if ne $index $lastIndex -}}{{" || "}}{{ end }} {{- end}}"
+  eventProtocol:
+    type: {{ .Values.gateway.eventProtocol.type }}
+    http:
+      port: {{ .Values.gateway.eventProtocol.port | quote }}
+  triggers:
+    {{- range .Values.backendNoTests }}
+    - template:
+        when:
+          any:
+            - {{ . | replace "-" "" }}
+        name: "github-{{ . | replace "-" "" }}-workflow-trigger"
+        group: argoproj.io
+        version: v1alpha1
+        kind: Workflow
+        source:
+          url:
+            path: {{ $.Values.sensor.backendNoTestWorkflow }}
+            verifycert: {{ $.Values.sensor.verifyCert }}
+      resourceParameters:
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "repository.clone_url"
+          # dest is repo
+          dest: spec.arguments.parameters.0.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "after"
+          # dest is commit
+          dest: spec.arguments.parameters.1.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "repository.name"
+            value: "{{ . }}"
+          # dest is repo name
+          dest: spec.arguments.parameters.2.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "ref"
+          # dest is image_tag
+          dest: spec.arguments.parameters.3.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "slack"
+            value: "{{ $.Values.workflow.slackChannel }}"
+          dest: spec.arguments.parameters.4.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "endpoint"
+            value: "{{ $.Values.workflow.endpoint }}"
+          dest: spec.arguments.parameters.5.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            path: "srcPath"
+            value: "{{ $.Values.workflow.srcPath }}"
+          dest: spec.arguments.parameters.6.value
+    {{- end }}

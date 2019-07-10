@@ -26,6 +26,8 @@ You need to create three [Kubernetes secrets](https://kubernetes.io/docs/concept
 > `$_> kubectl create secret generic docker-secret -n argo \`  
 >         `--from-file=${HOME}/.docker/config.json`
 
+You also need to set up Ingress for your `github-gateway`. See [here](https://github.com/dictyBase/Migration/blob/master/deployment/argoevents.md#ingress).
+
 ## Install
 ```
 helm install --name dev-release argo-pipeline
@@ -63,13 +65,23 @@ The following tables lists the configurable parameters of the **argo-pipeline** 
 | `eventSource.webHookSecret.name`   | Name of K8s secret with webhook secret     | `github-access`                 |
 | `eventSource.webHookSecret.key`    | Key containing GitHub webhook secret       | `webHookSecret`                 |
 | `eventSource.events`               | Array of GitHub events to trigger webhooks | `[push]`                        |
-| `sensor.name`                      | Name of sensor                             | `github-sensor`                 |
+| `sensor.backendName`               | Name of backend sensor                     | `github-sensor`                 |
+| `sensor.backendNoTestName`         | Name of sensor for backend without tests   | `github-sensor`                 |
+| `sensor.frontendName`              | Name of frontend sensor                    | `github-sensor`                 |
 | `sensor.frontendWorkflow`          | URL location of frontend workflow yaml     | `url`                           |
 | `sensor.backendWorkflow`           | URL location of backend workflow yaml      | `url`                           |
+| `sensor.backendNoTestWorkflow`     | URL of testless backend workflow yaml      | `url`                           |
 | `sensor.verifyCert`                | Boolean for secure connection              | `false`                         |
 | `hooks`                            | Array of webhooks (with repo and ID)       | `[]`                            |
 | `frontend`                         | Array of all frontend repos with webhooks  | `[]`                            |
 | `backend`                          | Array of all backend repos with webhooks   | `[]`                            |
+| `backendNoTests`                   | Array of all backend repos without tests   | `[]`                            |
+| `workflow.slackChannel`            | Slack channel to send notification         | `ericdev-ci`                    |
+| `workflow.endpoint`                | Endpoint for Argo workflow                 | `url`                           |
+| `workflow.srcPath`                 | Src path for containers                    | `/src`                          |
+| `workflow.arangoPass`              | ArangoDB password                          | `vandelay`                      |
+| `workflow.dbVersion`               | ArangoDB version                           | `3.3.19`                        |
+| `workflow.unitTestContainerImage`  | Docker image for backend unit tests        | `dictybase/backend-tester`      |
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
