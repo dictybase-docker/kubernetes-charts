@@ -44,11 +44,15 @@ eventSource:
 
 # all config related to sensor deployment
 sensor:
-  name: github-sensor
+  backendName: github-sensor-backend
+  backendNoTestName: github-sensor-backend-no-test
+  frontendName: github-sensor-frontend
   # location of frontend workflow yaml
   frontendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/frontend-unit-test-pipeline.yaml
   # location of backend workflow yaml
   backendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-unit-test-pipeline.yaml
+  # location of backend workflow yaml
+  backendNoTestWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-no-test-pipeline.yaml
   verifyCert: false
 
 # list of github webhooks
@@ -62,6 +66,8 @@ sensor:
 #   id: "121082141"
 # - repo: modware-order
 #   id: "121785862"
+# - repo: graphql-server
+#   id: "123456789"
 
 # list of frontend repositories with webhooks
 frontend:
@@ -81,8 +87,8 @@ backend:
 # - modware-content
 
 # list of backend repositories without unit tests
-# backend-no-tests:
-# - graphql-server
+backendNoTests:
+- graphql-server
 # - modware-import
 
 # custom values for argo workflow
