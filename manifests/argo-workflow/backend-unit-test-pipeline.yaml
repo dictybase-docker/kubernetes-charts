@@ -9,10 +9,9 @@ spec:
   arguments:
     parameters:
       - name: github_url
-      - name: revision
+      - name: commit
       - name: repo
       - name: image_tag
-        value: dev
       - name: slack_channel
         value: ericdev-ci
       - name: endpoint
@@ -24,7 +23,7 @@ spec:
       - name: db_version
         value: 3.3.19
       - name: unit_test_container_image
-        value: cybersiddhu/go-builder
+        value: dictybase/backend-tester
   templates:
   - name: notify
     container:
@@ -45,6 +44,8 @@ spec:
 
   - name: backend-ci
     steps: # <--- ci pipeline steps
+      - - name: ref-parser
+          template: ref-parser
       - - name: database # arangodb server
           template: arangodb
       - - name: unit-test # unit test, stops here on error or failure
@@ -59,9 +60,25 @@ spec:
                 value: "{{steps.database.ip}}"
       - - name: build-push # image build and push
           template: build-push
+          arguments:
+            parameters:
+              - name: tag
+                value: "{{steps.ref-parser.outputs.parameters.tag}}"
 
   # template definitons that are referenced in steps
-  ## starts up arangodb server for unit testing
+  # parse ref string from webhook response
+  - name: ref-parser
+    container:
+      image: alpine:3.7
+      args: ['echo "{{workflow.parameters.image_tag}}" | sed -E "s/refs\/(heads|tags)\///w ref.txt"']
+      command: [sh, -c]
+    outputs:
+      parameters:
+      - name: tag
+        valueFrom:
+          path: "ref.txt"
+
+  # starts up arangodb server for unit testing
   - name: arangodb
     daemon: true
     container:
@@ -69,14 +86,14 @@ spec:
       env:
         - name: ARANGO_ROOT_PASSWORD
           value: "{{workflow.parameters.arango_pass}}"
-      #readinessProbe:
-        #httpGet:
-          #path: /_admin/status
-          #port: 8529
-        #initialDelaySeconds: 4
-        #periodSeconds: 10
+      # readinessProbe:
+      #   httpGet:
+      #     path: /_admin/status
+      #     port: 8529
+      #   initialDelaySeconds: 4
+      #   periodSeconds: 10
 
-  ## runs unit tests from the checked out github repository
+  # runs unit tests from the checked out github repository
   - name: unit-test
     inputs:
       parameters:
@@ -86,7 +103,7 @@ spec:
         path: "{{workflow.parameters.src_path}}"
         git:
           repo: "{{workflow.parameters.github_url}}"
-          revision: "{{workflow.parameters.revision}}"
+          revision: "{{workflow.parameters.commit}}"
     container:
       image: "{{workflow.parameters.unit_test_container_image}}"
       workingDir: "{{workflow.parameters.src_path}}"
@@ -104,12 +121,14 @@ spec:
         path: "{{workflow.parameters.src_path}}"
         git:
           repo: "{{workflow.parameters.github_url}}"
-          revision: "{{workflow.parameters.revision}}"
+          revision: "{{workflow.parameters.commit}}"
+      parameters:
+      - name: tag
     container:
       image: gcr.io/kaniko-project/executor:latest
       args: ["--dockerfile=build/package/Dockerfile",
             "--context={{workflow.parameters.src_path}}",
-            "--destination=dictybase/{{workflow.parameters.repo}}:{{workflow.parameters.image_tag}}",
+            "--destination=dictybase/{{workflow.parameters.repo}}:{{inputs.parameters.tag}}",
             "--cache=true",
             "--cache-repo=dictybase/{{workflow.parameters.repo}}-cache"
             ]
