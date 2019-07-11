@@ -15,9 +15,7 @@ spec:
       - name: slack-channel
       - name: endpoint
       - name: src-path
-        value: /code
       - name: frontend-tag
-        value: ericdev
       - name: builder-image
         value: gcr.io/kaniko-project/executor
       - name: builder-tag
@@ -115,6 +113,8 @@ spec:
       artifacts:
       - name: source
         path: "{{workflow.parameters.src-path}}"
+      parameters:
+      - name: tag
     container:
       image: "{{workflow.parameters.builder-image}}:{{workflow.parameters.builder-tag}}"
       args: ["--dockerfile=./Dockerfile",

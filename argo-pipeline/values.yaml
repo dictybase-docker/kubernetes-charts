@@ -59,20 +59,20 @@ sensor:
 # all items need repo name and webhook id
 # hooks:
 # - repo: dicty-stock-center
-#   id: "118239462" # needs to be in quotes
+#   id: "121824882" # needs to be in quotes
 # - repo: dicty-frontpage
-#   id: "121773118"
+#   id: "121824883"
 # - repo: modware-stock
-#   id: "121082141"
+#   id: "121824887"
 # - repo: modware-order
-#   id: "121785862"
-# - repo: graphql-server
+#   id: "121824888"
+# - repo: "graphql-server"
 #   id: "123456789"
 
 # list of frontend repositories with webhooks
 frontend:
-- dicty-stock-center
-- dicty-frontpage
+# - dicty-stock-center
+# - dicty-frontpage
 # - genomepage
 # - dictyaccess
 # - publication
@@ -101,6 +101,8 @@ workflow:
   arangoPass: vandelay
   dbVersion: 3.3.19
   unitTestContainerImage: dictybase/backend-tester
+  frontendSrc: /code
+  frontendTag: ericdev
 
 # here you can override values for argo-events chart
 # https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
