@@ -104,50 +104,6 @@ workflow:
   frontendSrc: /code
   frontendTag: ericdev
 
-# here you can override values for argo-events chart
-# https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
-argo-events:
-  namespace: argo
-
-# here you can override values for argo chart
-# https://github.com/argoproj/argo-helm/tree/master/charts/argo
-argo:
-  init:
-    serviceAccount: argo-workflow
-  controller:
-    workflowNamespaces:
-      - argo
-  images:
-    tag: v2.3.0
-  ui:
-    ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: nginx
-      hosts:
-        - ericargo.dictybase.dev
-      tls:
-        - secretName: argo-eric-dev-tls
-          hosts:
-            - ericargo.dictybase.dev
-  # Influences the creation of the ConfigMap for the workflow-controller itself.
-  # useDefaultArtifactRepo: true
-  # artifactRepository:
-  # archiveLogs will archive the main container logs as an artifact
-  # archiveLogs: false
-  # s3:
-  # Note the `key` attribute is not the actual secret, it's the PATH to
-  # the contents in the associated secret, as defined by the `name` attribute.
-  # accessKeySecret:
-  #   name: minio-secret
-  #   key: accesskey
-  # secretKeySecret:
-  #   name: minio-secret
-  #   key: secretkey
-  # insecure: false
-  # bucket: argo
-  # endpoint: ericstorage.dictybase.dev
-
 # resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
