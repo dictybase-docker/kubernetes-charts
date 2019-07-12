@@ -1,4 +1,4 @@
 apiVersion: v1
 description: A Helm chart for Argo Events pipelines
 name: argo-pipeline
-version: 0.0.1
+version: 0.0.2

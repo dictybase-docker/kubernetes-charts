@@ -1,36 +1,37 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: ci-runner-
+  generateName: frontend-ci-runner-
 spec:
   entrypoint: frontend-ci
   onExit: notify
   serviceAccountName: argo-workflow
   arguments:
     parameters:
+      - name: github-url
+      - name: commit
       - name: repo
-      - name: revision
-        value: develop
-      - name: src_path
-        value: /src
-      - name: slack_channel
-        value: ericdev-ci
+      - name: image-tag
+      - name: slack-channel
       - name: endpoint
-        value: https://ericargo.dictybase.dev/workflows/argo
-      - name: unit_test_container_image
-        value: dictybase/node-build
+      - name: src-path
+      - name: frontend-tag
+      - name: builder-image
+        value: gcr.io/kaniko-project/executor
+      - name: builder-tag
+        value: latest
   templates:
   - name: notify
     container:
       image: dictybase/slack-notify
       args: ["-t", $(TOKEN),
-            "-c","{{workflow.parameters.slack_channel}}",
+            "-c","{{workflow.parameters.slack-channel}}",
             "-e","{{workflow.parameters.endpoint}}",
             "-w", "{{workflow.name}}",
             "-s","{{workflow.status}}",
             "--log-level","info"
       ]
-      env:
+      env: 
       - name: TOKEN
         valueFrom:
           secretKeyRef:
@@ -39,20 +40,93 @@ spec:
 
   - name: frontend-ci
     steps:
+      - - name: ref-parser
+          template: ref-parser
       - - name: unit-test
           template: unit-test
+      - - name: build
+          template: build
+          arguments:
+            artifacts:
+              - name: source
+                from: "{{steps.unit-test.outputs.artifacts.source}}"
+      - - name: image-build-push
+          template: image-build-push
+          arguments:
+            artifacts:
+              - name: source
+                from: "{{steps.build.outputs.artifacts.source}}"
+            parameters:
+              - name: tag
+                value: "{{steps.ref-parser.outputs.parameters.tag}}"
 
-  ## runs unit tests from the checked out github repository
+  # parse ref string from webhook response
+  - name: ref-parser
+    container:
+      image: alpine:3.7
+      args: ['echo "{{workflow.parameters.image-tag}}" | sed -E "s/refs\/(heads|tags)\///w ref.txt"']
+      command: [sh, -c]
+    outputs:
+      parameters:
+      - name: tag
+        valueFrom:
+          path: "ref.txt"
+
   - name: unit-test
     inputs:
       artifacts:
       - name: source
-        path: "{{workflow.parameters.src_path}}"
+        path: "{{workflow.parameters.src-path}}"
         git:
-          repo: "{{workflow.parameters.repo}}"
-          revision: "{{workflow.parameters.revision}}"
+          repo: "{{workflow.parameters.github-url}}"
+          revision: "{{workflow.parameters.commit}}"
+    outputs:
+      artifacts:
+        - name: source
+          path: "{{workflow.parameters.src-path}}"
     container:
-      image: "{{workflow.parameters.unit_test_container_image}}"
-      workingDir: "{{workflow.parameters.src_path}}"
-      args: ["cp /opt/clientConfig.js {{workflow.parameters.src_path}}/src/utils/ && npm install-test"]
+      image: dictybase/node-runner
       command: ["/bin/sh", "-c"]
+      args: ["cp /opt/clientConfig.js {{workflow.parameters.src-path}}/src/utils/ && \ 
+              npm ci && \ 
+              npm test"
+            ]
+      workingDir: "{{workflow.parameters.src-path}}"
+
+  - name: build
+    inputs:
+      artifacts:
+        - name: source
+          path: "{{workflow.parameters.src-path}}"
+    outputs:
+      artifacts:
+        - name: source
+          path: "{{workflow.parameters.src-path}}"
+    container:
+      image: dictybase/frontend-builder:{{workflow.parameters.frontend-tag}}
+      command: ["/bin/sh", "-c"]
+      args: ["npm run build"]
+      workingDir: "{{workflow.parameters.src-path}}"
+
+  - name: image-build-push
+    inputs:
+      artifacts:
+      - name: source
+        path: "{{workflow.parameters.src-path}}"
+      parameters:
+      - name: tag
+    container:
+      image: "{{workflow.parameters.builder-image}}:{{workflow.parameters.builder-tag}}"
+      args: ["--dockerfile=./Dockerfile",
+            "--context={{workflow.parameters.src-path}}",
+            "--destination=dictybase/{{workflow.parameters.repo}}:{{inputs.parameters.tag}}",
+            "--cache=true",
+            "--cache-repo=dictybase/{{workflow.parameters.repo}}-cache"
+            ]
+      volumeMounts:
+        - name: docker-secret
+          mountPath: /.docker
+  volumes:
+    - name: docker-secret
+      secret:
+        secretName: docker-secret

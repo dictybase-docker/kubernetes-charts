@@ -58,29 +58,29 @@ sensor:
 # list of github webhooks
 # all items need repo name and webhook id
 # hooks:
-# - repo: dicty-stock-center
-#   id: "118239462" # needs to be in quotes
-# - repo: dicty-frontpage
-#   id: "121773118"
-# - repo: modware-stock
-#   id: "121082141"
-# - repo: modware-order
-#   id: "121785862"
-# - repo: graphql-server
-#   id: "123456789"
+#   - repo: dicty-stock-center
+#     id: "121824882" # needs to be in quotes
+#   - repo: dicty-frontpage
+#     id: "121824883"
+#   - repo: modware-stock
+#     id: "121824887"
+#   - repo: modware-order
+#     id: "121824888"
+#   - repo: "graphql-server"
+#     id: "123456789"
 
 # list of frontend repositories with webhooks
 frontend:
-- dicty-stock-center
-- dicty-frontpage
+  - dicty-stock-center
+  - dicty-frontpage
 # - genomepage
 # - dictyaccess
 # - publication
 
 # list of backend repositories with webhooks
 backend:
-- modware-stock
-- modware-order
+  - modware-stock
+  - modware-order
 # - modware-annotation
 # - modware-identity
 # - modware-user
@@ -88,7 +88,7 @@ backend:
 
 # list of backend repositories without unit tests
 backendNoTests:
-- graphql-server
+  - graphql-server
 # - modware-import
 
 # custom values for argo workflow
@@ -101,51 +101,8 @@ workflow:
   arangoPass: vandelay
   dbVersion: 3.3.19
   unitTestContainerImage: dictybase/backend-tester
-
-# here you can override values for argo-events chart
-# https://github.com/argoproj/argo-helm/blob/master/charts/argo-events/values.yaml
-argo-events:
-  namespace: argo
-
-# here you can override values for argo chart
-# https://github.com/argoproj/argo-helm/tree/master/charts/argo
-argo:
-  init:
-    serviceAccount: argo-workflow
-  controller:
-    workflowNamespaces:
-      - argo
-  images:
-    tag: v2.3.0
-  ui:
-    ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: nginx
-      hosts:
-        - ericargo.dictybase.dev
-      tls:
-        - secretName: argo-eric-dev-tls
-          hosts:
-            - ericargo.dictybase.dev
-  # Influences the creation of the ConfigMap for the workflow-controller itself.
-  # useDefaultArtifactRepo: true
-  # artifactRepository:
-  # archiveLogs will archive the main container logs as an artifact
-  # archiveLogs: false
-  # s3:
-  # Note the `key` attribute is not the actual secret, it's the PATH to
-  # the contents in the associated secret, as defined by the `name` attribute.
-  # accessKeySecret:
-  #   name: minio-secret
-  #   key: accesskey
-  # secretKeySecret:
-  #   name: minio-secret
-  #   key: secretkey
-  # insecure: false
-  # bucket: argo
-  # endpoint: ericstorage.dictybase.dev
-
+  frontendSrc: /code
+  frontendTag: ericdev
 # resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
