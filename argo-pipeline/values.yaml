@@ -58,29 +58,29 @@ sensor:
 # list of github webhooks
 # all items need repo name and webhook id
 # hooks:
-# - repo: dicty-stock-center
-#   id: "121824882" # needs to be in quotes
-# - repo: dicty-frontpage
-#   id: "121824883"
-# - repo: modware-stock
-#   id: "121824887"
-# - repo: modware-order
-#   id: "121824888"
-# - repo: "graphql-server"
-#   id: "123456789"
+#   - repo: dicty-stock-center
+#     id: "121824882" # needs to be in quotes
+#   - repo: dicty-frontpage
+#     id: "121824883"
+#   - repo: modware-stock
+#     id: "121824887"
+#   - repo: modware-order
+#     id: "121824888"
+#   - repo: "graphql-server"
+#     id: "123456789"
 
 # list of frontend repositories with webhooks
 frontend:
-# - dicty-stock-center
-# - dicty-frontpage
+  - dicty-stock-center
+  - dicty-frontpage
 # - genomepage
 # - dictyaccess
 # - publication
 
 # list of backend repositories with webhooks
 backend:
-- modware-stock
-- modware-order
+  - modware-stock
+  - modware-order
 # - modware-annotation
 # - modware-identity
 # - modware-user
@@ -88,7 +88,7 @@ backend:
 
 # list of backend repositories without unit tests
 backendNoTests:
-- graphql-server
+  - graphql-server
 # - modware-import
 
 # custom values for argo workflow
@@ -103,7 +103,6 @@ workflow:
   unitTestContainerImage: dictybase/backend-tester
   frontendSrc: /code
   frontendTag: ericdev
-
 # resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
