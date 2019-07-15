@@ -16,7 +16,7 @@ Deployments:
 
 Make sure that both are installed in the same namespace (`argo`). Argo also needs
 to be configured to use Minio as an artifact repository, and it should use the `argo-workflow`
-rbac that is bundled in this chart.
+rbac.
 
 You need to create three [Kubernetes secrets](https://kubernetes.io/docs/concepts/configuration/secret/):
 
