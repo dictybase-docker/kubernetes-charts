@@ -6,8 +6,6 @@ metadata:
   labels:
     gateways.argoproj.io/gateway-controller-instanceid: argo-events
     argo-events-gateway-version: v0.10
-  annotations:
-    "helm.sh/hook": post-install
 spec:
   type: "github"
   eventSource: "{{ .Values.eventSource.name }}"
