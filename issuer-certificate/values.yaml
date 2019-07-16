@@ -1,0 +1,32 @@
+# Default values for issuer-certificate.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# namespace in which all will be deployed
+namespace: dictybase
+
+issuer:
+  name: dictybase-eric-dev
+  # for testing use https://acme-staging-v02.api.letsencrypt.org/directory 
+  server: https://acme-staging-v02.api.letsencrypt.org/directory 
+  email: user@example.com
+
+certificate:
+  name: dicty-eric-dev
+  domains:
+    - eric.dictybase.dev
+
+# resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+# nodeSelector: {}
+# tolerations: []
+# affinity: {}
