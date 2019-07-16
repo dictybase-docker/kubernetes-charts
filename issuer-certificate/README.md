@@ -35,11 +35,11 @@ The following tables lists the configurable parameters of the **issuer-certifica
 
 | Parameter             | Description                         | Default                                                  |
 | --------------------- | ----------------------------------- | -------------------------------------------------------- |
-| `namespace`           | Namespace for all deployments       | `dictybase`                                              |
-| `issuer.name`         | Name of issuer                      | `dictybase-eric-dev`                                     |
+| `namespace`           | Namespace for all deployments       | ``                                                       |
+| `issuer.name`         | Name of issuer                      | ``                                                       |
 | `issuer.server`       | Letsencrypt server URL              | `https://acme-staging-v02.api.letsencrypt.org/directory` |
-| `issuer.email`        | Personal email address              | `user@example.com`                                       |
-| `certificate.name`    | Name of certificate                 | `dicty-eric-dev`                                         |
+| `issuer.email`        | Personal email address              | ``                                                       |
+| `certificate.name`    | Name of certificate                 | ``                                                       |
 | `certificate.domains` | Array of domains to create cert for | `[]`                                                     |
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
