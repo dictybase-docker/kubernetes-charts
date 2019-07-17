@@ -4,39 +4,20 @@
 ingress:
   annotations: 
     kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-    ingress.kubernetes.io/rewrite-target: /
-    #nginx.ingress.kubernetes.io/auth-url: https://auth.example.local/authorize
-    nginx.ingress.kubernetes.io/auth-method: POST
-  hosts:
-    #- name: betaapi.dictybase.local
-      #paths:
-        #- path: /contents
-          #serviceName: content-api
-          #servicePort: 9555
-        #- path: /identities
-          #serviceName: identity-api
-          #servicePort: 9560
-        #- path: /roles
-          #serviceName: role-api
-          #servicePort: 9596
-        #- path: /users
-          #serviceName: user-api
-          #servicePort: 9596
-        #- path: /permissions
-          #serviceName: permission-api
-          #servicePort: 9596
-    #- name: betatoken.dictybase.local
-      #paths:
-        #- path: /tokens
-          #serviceName: authserver
-          #servicePort: 9996
-    #- name: betatest.dictybase.local
-      #paths:
-        #- path: /stockcenter
-          #serviceName: stock-center
-          #servicePort: 9595
-
+  # hosts:
+  #  - name: betaapi.random.local
+  #    paths:
+  #      - path: /contents
+  #        serviceName: content-api
+  #        servicePort: 9555
+  #      - path: /identities
+  #        serviceName: identity-api
+  #        servicePort: 9560
+  #  - name: betatoken.random.local
+  #    paths:
+  #      - path: /tokens
+  #        serviceName: authserver
+  #        servicePort: 9996
   # tls: 
   #  - secretName: example-local-tls
   #    hosts:
