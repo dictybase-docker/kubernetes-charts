@@ -27,7 +27,7 @@ eventSource:
   # repository owner
   owner: dictyBase
   # url base used for webhooks
-  hookURL: https://ericargo.dictybase.dev
+  # hookURL: https://ericargo.dictybase.dev
   apiToken:
     # k8s secret with token
     name: github-access
@@ -70,39 +70,39 @@ sensor:
 #     id: "123456789"
 
 # list of frontend repositories with webhooks
-frontend:
-  - dicty-stock-center
-  - dicty-frontpage
-# - genomepage
-# - dictyaccess
-# - publication
+# frontend:
+#   - dicty-stock-center
+#   - dicty-frontpage
+#   - genomepage
+#   - dictyaccess
+#   - publication
 
 # list of backend repositories with webhooks
-backend:
-  - modware-stock
-  - modware-order
-# - modware-annotation
-# - modware-identity
-# - modware-user
-# - modware-content
+# backend:
+#   - modware-stock
+#   - modware-order
+#   - modware-annotation
+#   - modware-identity
+#   - modware-user
+#   - modware-content
 
 # list of backend repositories without unit tests
-backendNoTests:
-  - graphql-server
-# - modware-import
+# backendNoTests:
+#   - graphql-server
+#   - modware-import
 
 # custom values for argo workflow
 workflow:
   # slack channel to send notification
-  slackChannel: ericdev-ci
+  # slackChannel: ericdev-ci
   # endpoint for argo workflow
-  endpoint: https://ericargo.dictybase.dev/workflows/argo
+  # endpoint: https://ericargo.dictybase.dev/workflows/argo
   srcPath: /src
   arangoPass: vandelay
   dbVersion: 3.3.19
   unitTestContainerImage: dictybase/backend-tester
   frontendSrc: /code
-  frontendTag: ericdev
+  # frontendTag: ericdev
 # resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little
