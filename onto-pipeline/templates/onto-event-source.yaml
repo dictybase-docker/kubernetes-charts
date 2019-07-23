@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.eventSource.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    argo-events-event-source-version: v0.10
+data:
+  {{ .Values.hooks.repo }}: |-
+    id: {{ .Values.hooks.id  }}
+    owner: {{ .Values.eventSource.owner  }}
+    repository: {{ .Values.hooks.repo }}
+    hook:
+     endpoint: "/ontology/{{ .Values.hooks.repo }}"
+     port: {{ .Values.gateway.ports.servicePort }}
+     url: {{ .Values.eventSource.hookURL }}
+    events:
+    {{- range .Values.eventSource.events }}
+    - {{.}}
+    {{- end}}
+    apiToken:
+      name: {{ .Values.eventSource.apiToken.name }}
+      key: {{ .Values.eventSource.apiToken.key }}
+    webHookSecret:
+      name: {{ .Values.eventSource.webHookSecret.name }}
+      key: {{ .Values.eventSource.webHookSecret.key }}
+    insecure: false
+    active: true
+    contentType: "json"

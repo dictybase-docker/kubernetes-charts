@@ -1,0 +1,63 @@
+# namespace in which all will be deployed
+namespace: argo
+
+# serviceAccount used for argo-events
+# this is automatically created when deploying argo-events
+serviceAccount: argo-events-sa
+
+# all config related to gateway deployment
+gateway:
+  name: onto-gateway
+  ports:
+    servicePort: 15000
+    targetPort: 15000
+    type: NodePort
+  processorPort: 9340
+  eventProtocol:
+    type: HTTP
+    port: 9340
+
+# all config related to event source deployment
+eventSource:
+  name: onto-event-source
+  # repository owner
+  owner: dictyBase
+  # url base used for webhooks, must be provided during the deploy
+  # hookURL: https://ericargo.dictybase.dev
+  apiToken:
+    # k8s secret with token
+    name: github-access
+    # key containing github access token
+    key: apiToken
+  webHookSecret:
+    # k8s secret with webhook secret
+    name: github-access
+    # key containing github webhook secret
+    key: webHookSecret
+  # list of events to trigger webhook for
+  events:
+    - push
+
+# all config related to sensor deployment
+sensor:
+  name: onto-sensor
+  # location of frontend workflow yaml
+  workflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/onto-pipeline.yaml
+  verifyCert: false
+
+# onto webhook
+hooks:
+  repo: migration-data
+  # id: "121824882" # needs to be in quotes
+
+# resources: {}
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi

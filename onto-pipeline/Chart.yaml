@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for handling ontology pipeline for dictybase
+name: onto-pipeline
+version: 0.0.1
