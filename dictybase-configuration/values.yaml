@@ -1,0 +1,16 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+arangodb:
+  # user:
+  # password:
+  databases: # databases that are tied to backend applications
+    - app: modware-stock
+      name: stock
+    - app: modware-annotation
+      name: annotation
+    - app: modware-order
+      name: order
+# slack:
+  # channel:
+  # endpoint:
+  # token:
