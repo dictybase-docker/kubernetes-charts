@@ -44,15 +44,15 @@ eventSource:
 
 # all config related to sensor deployment
 sensor:
-  backendName: github-sensor-backend
-  backendNoTestName: github-sensor-backend-no-test
-  frontendName: github-sensor-frontend
-  # location of frontend workflow yaml
-  frontendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/frontend-unit-test-pipeline.yaml
-  # location of backend workflow yaml
-  backendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-unit-test-pipeline.yaml
-  # location of backend workflow yaml
-  backendNoTestWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-no-test-pipeline.yaml
+  # backendName: github-sensor-backend
+  # backendNoTestName: github-sensor-backend-no-test
+  # frontendName: github-sensor-frontend
+  ## location of frontend workflow yaml
+  # frontendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/frontend-unit-test-pipeline.yaml
+  ## location of backend workflow yaml
+  # backendWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-unit-test-pipeline.yaml
+  ## location of backend workflow yaml
+  # backendNoTestWorkflow: https://raw.githubusercontent.com/dictybase-docker/kubernetes-charts/master/manifests/argo-workflow/backend-no-test-pipeline.yaml
   verifyCert: false
 
 # list of github webhooks
