@@ -1,4 +1,3 @@
-{{- $sensorName := list "backendName backendNoTestName frontendName" -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Gateway
 metadata:
@@ -43,8 +42,8 @@ spec:
       type: {{ .Values.gateway.ports.type }}
   watchers:
     sensors:
-    {{- range $sensorName }}
-      {{- if $sensorName }}
-      - name: "{{ index .Values.sensor $sensorName }}"
+    {{- range list "backendName backendNoTestName frontendName" }} 
+      {{- if hasKey $.Values.sensor . }}
+      - name: "{{ index $.Values.sensor . }}"
       {{- end }}
     {{- end }}
