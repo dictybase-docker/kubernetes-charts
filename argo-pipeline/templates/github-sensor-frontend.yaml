@@ -1,3 +1,4 @@
+{{- if .Values.sensor.frontendName -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
@@ -89,3 +90,4 @@ spec:
             value: "{{ $.Values.workflow.frontendTag }}"
           dest: spec.arguments.parameters.7.value
     {{- end }}
+{{- end }}

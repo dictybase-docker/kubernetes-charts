@@ -1,3 +1,4 @@
+{{- if .Values.sensor.backendName -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
@@ -99,3 +100,4 @@ spec:
             value: "{{ $.Values.workflow.unitTestContainerImage }}"
           dest: spec.arguments.parameters.9.value
     {{- end }}
+{{- end -}}

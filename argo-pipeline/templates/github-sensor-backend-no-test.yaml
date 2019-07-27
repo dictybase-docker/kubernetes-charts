@@ -1,3 +1,4 @@
+{{- if .Values.sensor.backendNoTestName -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Sensor
 metadata:
@@ -84,3 +85,4 @@ spec:
             value: "{{ $.Values.workflow.srcPath }}"
           dest: spec.arguments.parameters.6.value
     {{- end }}
+{{- end -}}
