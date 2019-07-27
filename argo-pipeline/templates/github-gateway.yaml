@@ -42,7 +42,7 @@ spec:
       type: {{ .Values.gateway.ports.type }}
   watchers:
     sensors:
-    {{- range list "backendName backendNoTestName frontendName" }} 
+    {{- range list "backendName" "backendNoTestName" "frontendName" }} 
       {{- if hasKey $.Values.sensor . }}
       - name: "{{ index $.Values.sensor . }}"
       {{- end }}
