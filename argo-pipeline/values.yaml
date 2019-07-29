@@ -91,18 +91,11 @@ sensor:
 #   - graphql-server
 #   - modware-import
 
-# custom values for argo workflow
-workflow:
-  # slack channel to send notification
-  # slackChannel: ericdev-ci
-  # endpoint for argo workflow
-  # endpoint: https://ericargo.dictybase.dev/workflows/argo
-  srcPath: /src
-  arangoPass: vandelay
-  dbVersion: 3.3.19
-  unitTestContainerImage: dictybase/backend-tester
-  frontendSrc: /code
+# The following configuration is a prerequisite for deploying frontend pipeline
+# only
+# workflow:
   # frontendTag: ericdev
+  
 # resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little

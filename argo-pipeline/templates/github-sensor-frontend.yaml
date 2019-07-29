@@ -59,11 +59,14 @@ spec:
         - src:
             event: "{{ $.Values.gateway.name }}:{{ . }}"
             path: "repository.name"
-            value: "{{ . }}"
           dest: spec.arguments.parameters.2.value
         - src:
             event: "{{ $.Values.gateway.name }}:{{ . }}"
             path: "ref"
           dest: spec.arguments.parameters.3.value
+        - src:
+            event: "{{ $.Values.gateway.name }}:{{ . }}"
+            value: "{{ $.Values.workflow.frontendTag }}"
+          dest: spec.arguments.parameters.4.value
     {{- end }}
 {{- end }}
