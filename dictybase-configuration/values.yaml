@@ -17,3 +17,7 @@ arangodb:
 # minio:
   # accesskey:
   # secretkey:
+# auth:
+  # publickey:
+  # privatekey:
+  # config:
