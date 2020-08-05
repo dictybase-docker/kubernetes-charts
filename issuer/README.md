@@ -1,4 +1,4 @@
-# issuer-certificate
+# issuer
 
 This [Helm](https://github.com/kubernetes/helm) chart provides
 [Kubernetes](http://kubernetes.io) manifests for creating issuers and certificates.
@@ -14,7 +14,7 @@ Deployments:
 ## Install
 
 ```
-helm install --name dev-release issuer-certificate
+helm install --name dev-release issuer
 ```
 
 For details, look [here](https://docs.helm.sh/using_helm/#helm-install-installing-a-package).
@@ -31,7 +31,7 @@ For upgrades and rollback, look [here](https://docs.helm.sh/using_helm/#helm-upg
 
 ## Configuration
 
-The following tables lists the configurable parameters of the **issuer-certificate** chart and their default values.
+The following tables lists the configurable parameters of the **issuer** chart and their default values.
 
 | Parameter             | Description                         | Default                                                  |
 | --------------------- | ----------------------------------- | -------------------------------------------------------- |
@@ -43,5 +43,5 @@ The following tables lists the configurable parameters of the **issuer-certifica
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install --name my-release -f values.yaml issuer-certificate
+$ helm install --name my-release -f values.yaml issuer
 ```
