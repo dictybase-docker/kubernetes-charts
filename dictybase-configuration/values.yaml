@@ -11,8 +11,6 @@ arangodb:
     - app: modware-order
       name: order
 # slack:
-  # channel:
-  # endpoint:
   # token:
 # minio:
   # accesskey:

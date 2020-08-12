@@ -8,8 +8,6 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 data:
-  slack.channel: "{{ .Values.slack.channel }}"
-  slack.endpoint: "{{ .Values.slack.endpoint }}"
   arangodb.user: "{{ .Values.arangodb.user }}"
 {{- range .Values.arangodb.databases }}
  {{ printf " arangodb.%s" .app }}: {{ .name | quote }}
