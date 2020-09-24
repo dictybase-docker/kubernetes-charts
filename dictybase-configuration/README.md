@@ -1,13 +1,13 @@
 # dictybase-configuration
 
-This [helm](https://github.com/kubernetes/helm) chart provides
-[kubernetes](http://kubernetes.io) manifests for setting up
+This [Helm](https://github.com/kubernetes/helm) chart provides
+[Kubernetes](http://kubernetes.io) manifests for setting up
 dictybase-configuration.
 
 ## Credentials
 
 A Kubernetes [secret](http://kubernetes.io/docs/user-guide/secrets/) is used for
-storing the database credentials.
+storing the database credentials and any secret tokens.
 
 ## Auth secrets
 
@@ -42,14 +42,16 @@ For upgrades and rollback, look [here](https://docs.helm.sh/using_helm/#helm-upg
 
 The following tables lists the configurable parameters of the **dictybase-configuration** chart and their default values.
 
-| Parameter            | Description                | Default         |
-| -------------------- | -------------------------- | --------------- |
-| `arangodb.user`      | ArangoDB Admin User        | ``              |
-| `arangodb.password`  | ArangoDB User Password     | ``              |
-| `arangodb.databases` | List of ArangoDB databases | See values.yaml |
-| `slack.token`        | Slack API token            | ``              |
-| `minio.accesskey`    | Minio Access Key           | ``              |
-| `minio.secretkey`    | Minio Secret Key           | ``              |
+| Parameter               | Description                                               | Default         |
+| ----------------------- | --------------------------------------------------------- | --------------- |
+| `arangodb.user`         | ArangoDB Admin User                                       | ``              |
+| `arangodb.password`     | ArangoDB User Password                                    | ``              |
+| `arangodb.databases`    | List of ArangoDB databases                                | See values.yaml |
+| `endpoints.organism`    | JSON location for organism data (used for downloads page) | ``              |
+| `endpoints.publication` | Publication API endpoint                                  | ``              |
+| `minio.accesskey`       | Minio Access Key                                          | ``              |
+| `minio.secretkey`       | Minio Secret Key                                          | ``              |
+| `slack.token`           | Slack API token                                           | ``              |
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 

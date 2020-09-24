@@ -1,15 +1,24 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+# NOTES:
+# Endpoints are used with the GraphQL server. Dev URLs are given as an example.
+
 arangodb:
   # user:
   # password:
   databases: # databases that are tied to backend applications
-    - app: modware-stock
-      name: stock
     - app: modware-annotation
       name: annotation
+    - app: modware-auth
+      name: auth
     - app: modware-order
       name: order
+    - app: modware-stock
+      name: stock
+# endpoints:
+  # organism: https://raw.githubusercontent.com/dictyBase/migration-data/master/downloads/organisms-with-citations.dev.json
+  # publication: https://ericfunc.dictybase.dev/publications
 # slack:
   # token:
 # minio:
