@@ -8,7 +8,7 @@ metadata:
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 data:
-  endpoints.publication: "{{ .Values.endpoints.organism }}"
+  endpoints.organism: "{{ .Values.endpoints.organism }}"
   endpoints.publication: "{{ .Values.endpoints.publication }}"
   arangodb.user: "{{ .Values.arangodb.user }}"
 {{- range .Values.arangodb.databases }}
