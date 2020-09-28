@@ -10,6 +10,11 @@ metadata:
 data:
   endpoints.organism: "{{ .Values.endpoints.organism }}"
   endpoints.publication: "{{ .Values.endpoints.publication }}"
+  eventMessenger.github.owner: "{{ .Values.eventMessenger.github.owner }}"
+  eventMessenger.github.repository: "{{ .Values.eventMessenger.github.repository }}"
+  eventMessenger.email.domain: "{{ .Values.eventMessenger.email.domain }}"
+  eventMessenger.email.sender: "{{ .Values.eventMessenger.email.sender }}"
+  eventMessenger.email.senderName: "{{ .Values.eventMessenger.email.senderName }}"
   arangodb.user: "{{ .Values.arangodb.user }}"
 {{- range .Values.arangodb.databases }}
  {{ printf " arangodb.%s" .app }}: {{ .name | quote }}

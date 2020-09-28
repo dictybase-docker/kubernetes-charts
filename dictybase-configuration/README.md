@@ -42,16 +42,23 @@ For upgrades and rollback, look [here](https://docs.helm.sh/using_helm/#helm-upg
 
 The following tables lists the configurable parameters of the **dictybase-configuration** chart and their default values.
 
-| Parameter               | Description                                               | Default         |
-| ----------------------- | --------------------------------------------------------- | --------------- |
-| `arangodb.user`         | ArangoDB Admin User                                       | ``              |
-| `arangodb.password`     | ArangoDB User Password                                    | ``              |
-| `arangodb.databases`    | List of ArangoDB databases                                | See values.yaml |
-| `endpoints.organism`    | JSON location for organism data (used for downloads page) | ``              |
-| `endpoints.publication` | Publication API endpoint                                  | ``              |
-| `minio.accesskey`       | Minio Access Key                                          | ``              |
-| `minio.secretkey`       | Minio Secret Key                                          | ``              |
-| `slack.token`           | Slack API token                                           | ``              |
+| Parameter                          | Description                                               | Default         |
+| ---------------------------------- | --------------------------------------------------------- | --------------- |
+| `arangodb.user`                    | ArangoDB Admin User                                       | ``              |
+| `arangodb.password`                | ArangoDB User Password                                    | ``              |
+| `arangodb.databases`               | List of ArangoDB databases                                | See values.yaml |
+| `endpoints.organism`               | JSON location for organism data (used for downloads page) | ``              |
+| `endpoints.publication`            | Publication API endpoint                                  | ``              |
+| `eventMessenger.github.token`      | GitHub API token                                          | ``              |
+| `eventMessenger.github.owner`      | Owner of GitHub repo                                      | ``              |
+| `eventMessenger.github.repository` | GitHub repo to post issues to                             | ``              |
+| `eventMessenger.email.domain`      | Email domain                                              | ``              |
+| `eventMessenger.email.apiKey`      | Mailgun API key                                           | ``              |
+| `eventMessenger.email.sender`      | Email address to send from                                | ``              |
+| `eventMessenger.email.senderName`  | Sender name for emails                                    | ``              |
+| `minio.accesskey`                  | Minio Access Key                                          | ``              |
+| `minio.secretkey`                  | Minio Secret Key                                          | ``              |
+| `slack.token`                      | Slack API token                                           | ``              |
 
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 

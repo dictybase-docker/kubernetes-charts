@@ -28,3 +28,14 @@ arangodb:
   # publickey:
   # privatekey:
   # config:
+# eventMessenger:
+#   github:
+#     token:
+#     owner:
+#     repository:
+#   email:
+#     domain:
+#     apiKey:
+#     sender:
+#     senderName:
+    
