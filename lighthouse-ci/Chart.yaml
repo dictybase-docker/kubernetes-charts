@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "0.5.1"
 description: A Helm chart for installing lighthouse-cli 
 name: lighthouse-ci
-version: 1.0.0
+version: 1.0.1
