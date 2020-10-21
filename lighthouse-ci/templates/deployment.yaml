@@ -18,12 +18,12 @@ spec:
     spec:
       volumes:
         - name: data
-        {{ if .Values.persistence.enabled }}
+        {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName:  {{ .Values.persistence.claimName | default (include "lighthouse-ci.name" .) }} 
-        {{ else }}
+        {{- else }}
             emptyDir: {}
-        {{ end }}
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
