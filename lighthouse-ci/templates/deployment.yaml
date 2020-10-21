@@ -17,13 +17,13 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       volumes:
-      - name: data
-      {{- if .Values.persistence.enabled }}
-        persistentVolumeClaim:
-          claimName: {{ .Values.persistence.existingClaim | default (include "lighthouse-ci.fullname" .) }}
-      {{- else }}
-        emptyDir: {}
-      {{- end -}}
+        - name: data
+        {{ if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName:  {{ .Values.persistence.claimName | default (include "lighthouse-ci.name" .) }} 
+        {{ else }}
+            emptyDir: {}
+        {{ end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
