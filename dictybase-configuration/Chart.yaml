@@ -1,4 +1,4 @@
 apiVersion: v1
-description: A Helm chart for Kubernetes to store dictyBase specific configurations.
+description: A Helm chart to store dictyBase-specific configurations.
 name: dictybase-configuration
-version: 2.2.0
+version: 2.3.0

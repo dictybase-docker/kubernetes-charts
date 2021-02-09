@@ -15,6 +15,7 @@ data:
   eventMessenger.email.domain: "{{ .Values.eventMessenger.email.domain }}"
   eventMessenger.email.sender: "{{ .Values.eventMessenger.email.sender }}"
   eventMessenger.email.senderName: "{{ .Values.eventMessenger.email.senderName }}"
+  eventMessenger.email.cc: "{{ .Values.eventMessenger.email.cc }}"
   arangodb.user: "{{ .Values.arangodb.user }}"
 {{- range .Values.arangodb.databases }}
  {{ printf " arangodb.%s" .app }}: {{ .name | quote }}
