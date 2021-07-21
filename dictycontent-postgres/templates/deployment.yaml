@@ -8,6 +8,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+  selector:
+    matchLabels:
+        app: {{ template "dictycontent-postgres.fullname" . }}
   template:
     metadata:
       labels:
