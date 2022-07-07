@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: arangodb/arangodb
-  tag: 3.6.5
+  tag: 3.6.8
   pullPolicy: IfNotPresent
 
 #
@@ -20,7 +20,7 @@ arangodb:
     # no of agents to start with
     count: 3
     # amount of storage for each agent
-    storage: 500Mi
+    storage: 5Gi
   dbservers:
     # no of dbservers to start with
     count: 2
